@@ -62,12 +62,6 @@ const loginUser = gql`
       token
       user {
         id
-        firstName
-        lastName
-        email
-        role
-        phoneNumber
-        completedProfile
       }
     }
   }
@@ -109,6 +103,11 @@ export class AuthService {
     // Authenticated to true and stop loading
 
     const token: string = this.getUserToken();
+    if (token) {
+    }
+  }
+
+  private getMe(token: string): void {
     this.apollo
       .watchQuery<any>({
         query: getMe,
@@ -118,7 +117,11 @@ export class AuthService {
       })
       .valueChanges.subscribe(({ data, loading, error }) => {
         this.messagingService.setLoadingBig(loading);
+        console.log(error, data);
+
         if (data?.me && !error) {
+          console.log('Isnide');
+
           this.user.next(data.me);
           this.userIsAuthenticated.next(true);
         }
@@ -137,7 +140,7 @@ export class AuthService {
     localStorage.removeItem('token');
   }
 
-  public getMe(): Observable<User> {
+  public getUser(): Observable<User> {
     return this.user;
   }
   /**
@@ -154,6 +157,8 @@ export class AuthService {
    * @param password User inputted password
    */
   public loginUser(login: string, password: string): void {
+    console.log('Loging iN');
+
     // Set loading to true
     // Start mutation query
     this.apollo
@@ -166,13 +171,17 @@ export class AuthService {
       })
       .subscribe(
         ({ data }) => {
+          console.log(data);
+
           // Add data to user using deconstructor
           this.user = { ...data['loginUser']['user'] };
           // Set token to returned data value
           const token = data['loginUser']['token'];
+          console.log({ token });
+
           // Store token to local storage
-          localStorage.setItem('jobkikToken', token);
-          location.reload();
+          // localStorage.setItem('jobkikToken', token);
+          // location.reload();
           // Stop loading
           // this.loading.next(false);
           // Set authentication to true
@@ -192,7 +201,7 @@ export class AuthService {
         (error) => {
           // Stop loading
 
-          console.log('there was an error sending the query', error);
+          console.log('there was an error sending the login query', error);
         }
       );
   }

@@ -1,1 +1,45 @@
-<p>login works!</p>
+<div class="container">
+  <div class="card shadow">
+    <!-- <img src="../../../assets/login-img.jpg" alt="" class="card-img-top" /> -->
+    <div class="card-body">
+      <h1>Admin Login</h1>
+      <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label class="form-label" for="loginInput">Username or Email</label>
+          <input
+            class="form-control"
+            id="loginInput"
+            type="text"
+            name="username"
+            formControlName="username"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="passwordInput">Password</label>
+          <input
+            class="form-control"
+            id="passwordInput"
+            type="password"
+            name="password"
+            formControlName="password"
+          />
+        </div>
+        <app-messages></app-messages>
+        <div class="row m-3">
+          <button
+            type="submit"
+            value="Submit"
+            class="btn btn-primary"
+            [disabled]="!loginForm.valid"
+          >
+            Login
+          </button>
+          <div class="authentication text-center">
+            <a [routerLink]="['/register']">Not registered? Create Account</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 // Services
 import { AuthService } from './services/auth.services';
@@ -30,7 +30,13 @@ import { RegisterComponent } from './components/pages/authentication/register/re
     LoginComponent,
     RegisterComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, GraphQLModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    GraphQLModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+  ],
   providers: [AuthService, MessagingService],
   bootstrap: [AppComponent],
 })
