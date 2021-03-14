@@ -120,7 +120,7 @@ export class AuthService {
         console.log(error, data);
 
         if (data?.me && !error) {
-          console.log('Isnide');
+          console.log('Inside');
 
           this.user.next(data.me);
           this.userIsAuthenticated.next(true);
@@ -201,7 +201,11 @@ export class AuthService {
         (error) => {
           // Stop loading
 
-          console.log('there was an error sending the login query', error);
+          console.log(
+            '%cThere was an error sending the login query',
+            'background: #222; color: #bada55',
+            error.message
+          );
         }
       );
   }

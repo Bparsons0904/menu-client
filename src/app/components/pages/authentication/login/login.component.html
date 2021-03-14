@@ -8,11 +8,14 @@
           <label class="form-label" for="loginInput">Username or Email</label>
           <input
             class="form-control"
-            id="loginInput"
+            id="username"
             type="text"
             name="username"
             formControlName="username"
           />
+          <div *ngIf="username.invalid && (username.dirty || username.touched)">
+            <div *ngIf="username.errors.required">Name is required.</div>
+          </div>
         </div>
 
         <div class="mb-3">
@@ -24,6 +27,12 @@
             name="password"
             formControlName="password"
           />
+          <div *ngIf="password.invalid && password.touched">
+            <div *ngIf="password.errors.required">Password is required.</div>
+            <div *ngIf="password.errors.minlength">
+              Password must be at least 8 characters long.
+            </div>
+          </div>
         </div>
         <app-messages></app-messages>
         <div class="row m-3">

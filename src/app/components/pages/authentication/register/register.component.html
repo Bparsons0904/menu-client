@@ -1,1 +1,67 @@
-<p>register works!</p>
+<div class="container">
+  <div class="card shadow">
+    <!-- <img src="../../../assets/login-img.jpg" alt="" class="card-img-top" /> -->
+    <div class="card-body">
+      <h1>Admin Login</h1>
+      <form class="form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label class="form-label" for="loginInput">Username</label>
+          <input
+            class="form-control"
+            id="username"
+            type="text"
+            name="username"
+            formControlName="username"
+          />
+          <div *ngIf="username.invalid && (username.dirty || username.touched)">
+            <div *ngIf="username.errors.required">Name is required.</div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="loginInput">Email</label>
+          <input
+            class="form-control"
+            id="email"
+            type="email"
+            name="email"
+            formControlName="email"
+          />
+          <div *ngIf="email.invalid && (email.dirty || email.touched)">
+            <div *ngIf="email.errors.required">Name is required.</div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="passwordInput">Password</label>
+          <input
+            class="form-control"
+            id="passwordInput"
+            type="password"
+            name="password"
+            formControlName="password"
+          />
+          <div *ngIf="password.invalid && password.touched">
+            <div *ngIf="password.errors.required">Password is required.</div>
+            <div *ngIf="password.errors.minlength">
+              Password must be at least 8 characters long.
+            </div>
+          </div>
+        </div>
+        <app-messages></app-messages>
+        <div class="row m-3">
+          <button
+            type="submit"
+            value="Submit"
+            class="btn btn-primary"
+            [disabled]="!registerForm.valid"
+          >
+            Login
+          </button>
+          <div class="authentication text-center">
+            <a [routerLink]="['/register']">Not registered? Create Account</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
