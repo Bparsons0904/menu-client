@@ -5,8 +5,7 @@ import gql from 'graphql-tag';
 import { User } from '../models/user';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
-// import { UserService } from './user.service';
-//import { UserProfile } from '../models/UserProfile';
+import { MessagingService } from './messaging.service';
 
 /**
  * Query for getting current user
@@ -78,17 +77,16 @@ const loginUser = gql`
   providedIn: 'root',
 })
 export class AuthService {
-  private userAuthenticated: BehaviorSubject<boolean>;
-  public loading: BehaviorSubject<boolean>;
+  private userIsAuthenticated: BehaviorSubject<boolean>;
   private user: BehaviorSubject<User>;
 
   constructor(
     private apollo: Apollo,
-    private router: Router // private userService: UserService
+    private router: Router,
+    private messagingService: MessagingService
   ) {
     // Initialize the observable variables with default values
-    this.userAuthenticated = new BehaviorSubject<boolean>(false);
-    this.loading = new BehaviorSubject<boolean>(true);
+    this.userIsAuthenticated = new BehaviorSubject<boolean>(false);
     this.user = new BehaviorSubject<User>(null);
 
     /**
@@ -111,8 +109,6 @@ export class AuthService {
     // Authenticated to true and stop loading
 
     const token: string = this.getUserToken();
-    console.log(token);
-
     this.apollo
       .watchQuery<any>({
         query: getMe,
@@ -121,38 +117,11 @@ export class AuthService {
         },
       })
       .valueChanges.subscribe(({ data, loading, error }) => {
+        this.messagingService.setLoadingBig(loading);
         if (data?.me && !error) {
           this.user.next(data.me);
-        } else {
-          console.log(error);
+          this.userIsAuthenticated.next(true);
         }
-        // If no data or does not include me data, set authentication to false
-        if (data === null || data.me === null) {
-          // Token is invalid, remove from local storage
-          //   if (localStorage.getItem('jobkikToken') !== null) {
-          //     console.log('Clearing invalid token');
-          //     localStorage.setItem('jobkikToken', null);
-          //   }
-          //   this.userAuthenticated.next(false);
-          //   this.loading.next(false);
-        }
-        // else if (data.me.id > 0) {
-        //   // If data includes a user id, it is authenticated
-        //   this.userAuthenticated.next(true);
-        //   this.loading.next(false);
-        //   //   this.userService.setUser(data.me);
-        //   if (data.me.role === 'employer') {
-        //     this.router.navigate(['/']);
-        //   } else if (!data.me.completedProfile) {
-        //     this.router.navigate(['/createprofile']);
-        //   } else {
-        //     this.router.navigate(['/']);
-        //   }
-        // } else {
-        //   // If data id isn't included, set to false
-        //   this.userAuthenticated.next(false);
-        //   this.loading.next(false);
-        // }
       });
   }
 
@@ -175,13 +144,7 @@ export class AuthService {
    * Return an observable to watch if user is authenticated
    */
   public isAuthenticated(): Observable<boolean> {
-    return this.userAuthenticated.asObservable();
-  }
-  /**
-   * Return an observable to indicate if something is loading
-   */
-  public isLoaded(): Observable<boolean> {
-    return this.loading.asObservable();
+    return this.userIsAuthenticated.asObservable();
   }
 
   /**
@@ -192,7 +155,6 @@ export class AuthService {
    */
   public loginUser(login: string, password: string): void {
     // Set loading to true
-    this.loading.next(true);
     // Start mutation query
     this.apollo
       .mutate({
@@ -214,7 +176,7 @@ export class AuthService {
           // Stop loading
           // this.loading.next(false);
           // Set authentication to true
-          // this.userAuthenticated.next(true);
+          // this.userIsAuthenticated.next(true);
           // if (this.user.completedProfile) {
           //   // Return to home page
           //   this.router.navigate(['/']).then(() => location.reload());
@@ -229,7 +191,7 @@ export class AuthService {
         },
         (error) => {
           // Stop loading
-          this.loading.next(false);
+
           console.log('there was an error sending the query', error);
         }
       );
@@ -243,7 +205,6 @@ export class AuthService {
    */
   public registerUser(user: User): void {
     // Set loading to true
-    this.loading.next(true);
     this.apollo
       .mutate({
         mutation: registerUser,
@@ -264,15 +225,15 @@ export class AuthService {
           // Store token to local storage
           localStorage.setItem('jobkikToken', token);
           // Set authentication to true
-          this.userAuthenticated.next(true);
+          this.userIsAuthenticated.next(true);
           // Stop loading animation
-          this.loading.next(false);
+
           // Return to home page
           this.router.navigate(['/']).then(() => location.reload());
         },
         (error) => {
           // Stop loading
-          this.loading.next(false);
+
           console.log('there was an error sending the query', error);
         }
       );
@@ -284,7 +245,7 @@ export class AuthService {
    */
   public logout(): void {
     // Set authentication to false
-    this.userAuthenticated.next(false);
+    this.userIsAuthenticated.next(false);
     // Clear user information from the application
     // this.userService.clearUser();
     // Remove token from storage
