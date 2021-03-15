@@ -20,6 +20,13 @@ import { MessagesComponent } from './components/navigation/messages/messages.com
 import { LoginComponent } from './components/pages/authentication/login/login.component';
 import { RegisterComponent } from './components/pages/authentication/register/register.component';
 import { ProfileComponent } from './components/pages/authentication/profile/profile.component';
+import { AboutComponent } from './components/pages/general/about/about.component';
+import { PricingComponent } from './components/pages/general/pricing/pricing.component';
+import { DemoComponent } from './components/pages/general/demo/demo.component';
+import { UsersComponent } from './components/pages/admin/users/users.component';
+import { CustomersComponent } from './components/pages/admin/customers/customers.component';
+import { ThankyouComponent } from './components/pages/customer/thankyou/thankyou.component';
+import { WaitingComponent } from './components/navigation/waiting/waiting.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +39,13 @@ import { ProfileComponent } from './components/pages/authentication/profile/prof
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
+    AboutComponent,
+    PricingComponent,
+    DemoComponent,
+    UsersComponent,
+    CustomersComponent,
+    ThankyouComponent,
+    WaitingComponent,
   ],
   imports: [
     BrowserModule,

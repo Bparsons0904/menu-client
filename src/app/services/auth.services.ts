@@ -7,64 +7,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 import { MessagingService } from './messaging.service';
 
-/**
- * Query for getting current user
- */
-const getMe = gql`
-  {
-    me {
-      id
-      username
-      email
-      profile {
-        firstName
-        lastName
-        role
-      }
-    }
-  }
-`;
-/**
- * Query for getting current user
- */
-const getUsers = gql`
-  {
-    getUsers {
-      username
-      email
-    }
-  }
-`;
-/**
- * Mutation for registering user
- */
-const registerUser = gql`
-  mutation registerUser(
-    $username: String!
-    $password: String!
-    $email: String!
-  ) {
-    registerUser(username: $username, email: $email, password: $password) {
-      user {
-        id
-      }
-      token
-    }
-  }
-`;
-/**
- * Mutation for getting current user
- */
-const loginUser = gql`
-  mutation loginUser($username: String!, $password: String!) {
-    loginUser(login: $username, password: $password) {
-      token
-      user {
-        id
-      }
-    }
-  }
-`;
+import * as query from '../models/Queries';
 
 @Injectable({
   providedIn: 'root',
@@ -84,42 +27,41 @@ export class AuthService {
     this.userIsAuthenticated = new BehaviorSubject<boolean>(false);
     this.user = new BehaviorSubject<User>(null);
     this.registeredUsers = new BehaviorSubject<User[]>([]);
+    // TODO: Remove once real server is up
+    this.messagingService.setLoadingBig(true);
 
-    /**
-     * This is the 1st type of query, use when a observable is not needed/desired
-     */
-
-    // this.checkMe = this.apollo.watchQuery({ query: getMe }).valueChanges.pipe(
-    //   map(({ data }) => {
-    //     console.log('me is working', data);
-
-    //     if (data === null || data['me'] === null) {
-    //       return false;
-    //     } else {
-    //       return data['me']['id'] > 0 ? true : false;
-    //     }
-    //   })
-    // );
-
-    // Query the current user to see if they are authenticated. If true, set
-    // Authenticated to true and stop loading
-
+    this.apollo
+      .watchQuery<any>({
+        query: query.getUsers,
+      })
+      .valueChanges.subscribe(({ data, loading, error }) => {
+        if (data?.getUsers && !error) {
+          this.registeredUsers.next(data.getUsers);
+          this.messagingService.setLoadingBig(true);
+        }
+      });
+    // Query the current user if token is saved
     const token: string = this.getUserToken();
     if (token) {
+      this.getMe(token);
     }
   }
 
+  /**
+   * Query for getting current user
+   *
+   * @param token Token to login user
+   */
   private getMe(token: string): void {
     this.apollo
       .watchQuery<any>({
-        query: getMe,
+        query: query.getMe,
         context: {
           headers: new HttpHeaders().set('x-token', token),
         },
       })
       .valueChanges.subscribe(({ data, loading, error }) => {
-        this.messagingService.setLoadingBig(loading);
-        console.log(error, data);
+        // this.messagingService.setLoadingBig(loading);
 
         if (data?.me && !error) {
           console.log('Inside');
@@ -161,14 +103,7 @@ export class AuthService {
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYzBmNDUxLWNjYzYtNDJmMC1iODMwLTc4MmFmOTU2Yzg3MCIsImVtYWlsIjoiYWRtaW5AbWVudS5jb20iLCJ1c2VybmFtZSI6IkFkbWluIiwiaWF0IjoxNjE1NzM2NDI1LCJleHAiOjE2MTgzMjg0MjV9.5X6n4I-FFUsVXHx_Qn4Vj3fYnrP9G4n8abcA2ZlrPBI';
     this.apollo
       .watchQuery<any>({
-        query: gql`
-          {
-            getUsers {
-              username
-              email
-            }
-          }
-        `,
+        query: query.getUsers,
         context: {
           headers: new HttpHeaders().set('x-token', token),
         },
@@ -200,7 +135,7 @@ export class AuthService {
     // Start mutation query
     this.apollo
       .mutate({
-        mutation: loginUser,
+        mutation: query.loginUser,
         variables: {
           username: login,
           password: password,
@@ -211,11 +146,11 @@ export class AuthService {
           console.log(data);
 
           // Add data to user using deconstructor
-          this.user = { ...data['loginUser']['user'] };
+          // this.user = { ...data['loginUser']['user'] };
           // Set token to returned data value
           const token = data['loginUser']['token'];
           console.log({ token });
-
+          this.router.navigate(['/menu']);
           // Store token to local storage
           // localStorage.setItem('jobkikToken', token);
           // location.reload();
@@ -262,7 +197,7 @@ export class AuthService {
 
     this.apollo
       .mutate<any>({
-        mutation: registerUser,
+        mutation: query.registerUser,
         variables: {
           username: user.username,
           password: user.password,
@@ -309,12 +244,27 @@ export class AuthService {
    */
   public logout(): void {
     // Set authentication to false
-    this.userIsAuthenticated.next(false);
+    // this.userIsAuthenticated.next(false);
     // Clear user information from the application
     // this.userService.clearUser();
     // Remove token from storage
-    localStorage.setItem('jobkikToken', null);
+    // localStorage.setItem('jobkikToken', null);
     // Return to home page
-    this.router.navigate(['/']).then(() => location.reload());
+    this.router.navigate(['/menu']);
   }
 }
+/**
+ * This is the 1st type of query, use when a observable is not needed/desired
+ */
+
+// this.checkMe = this.apollo.watchQuery({ query: getMe }).valueChanges.pipe(
+//   map(({ data }) => {
+//     console.log('me is working', data);
+
+//     if (data === null || data['me'] === null) {
+//       return false;
+//     } else {
+//       return data['me']['id'] > 0 ? true : false;
+//     }
+//   })
+// );
