@@ -15,6 +15,9 @@
           />
           <div *ngIf="username.invalid && (username.dirty || username.touched)">
             <div *ngIf="username.errors.required">Name is required.</div>
+            <div *ngIf="username.errors.usernameUnique">
+              Username {{ username.value }} is already taken.
+            </div>
           </div>
         </div>
         <div class="mb-3">
@@ -27,7 +30,12 @@
             formControlName="email"
           />
           <div *ngIf="email.invalid && (email.dirty || email.touched)">
-            <div *ngIf="email.errors.required">Name is required.</div>
+            <div *ngIf="email.errors.required">Email is required.</div>
+            <div *ngIf="email.errors.email">Must be a valid email format.</div>
+            <div *ngIf="email.errors.emailUnique">
+              Email {{ email.value }} is already taken.
+              <a href="#">Reset Password</a>
+            </div>
           </div>
         </div>
 
@@ -45,9 +53,46 @@
             <div *ngIf="password.errors.minlength">
               Password must be at least 8 characters long.
             </div>
+            <div *ngIf="password.errors.invalidPassword">
+              Password should have minimum 8 characters, at least 1 uppercase
+              letter, 1 lowercase letter and 1 number
+            </div>
           </div>
         </div>
+        <div class="mb-3">
+          <label class="form-label" for="confirmPasswordInput"
+            >Confirm Password</label
+          >
+          <input
+            class="form-control"
+            id="confirmPasswordInput"
+            type="password"
+            name="confirmPassword"
+            formControlName="confirmPassword"
+          />
+          <div *ngIf="confirmPassword.invalid && confirmPassword.touched">
+            <div *ngIf="confirmPassword.errors.required">
+              Password Confirmation is required.
+            </div>
+            <div *ngIf="confirmPassword.errors?.passwordMismatch">
+              Passwords do not match.
+            </div>
+          </div>
+        </div>
+        <div>
+          <label for="remember">Remember Login</label>
+          <label class="switch">
+            <input
+              type="checkbox"
+              id="remember"
+              name="remember"
+              formControlName="remember"
+            />
+            <span class="slider round"></span>
+          </label>
+        </div>
         <app-messages></app-messages>
+        <app-loading></app-loading>
         <div class="row m-3">
           <button
             type="submit"
@@ -58,7 +103,7 @@
             Login
           </button>
           <div class="authentication text-center">
-            <a [routerLink]="['/register']">Not registered? Create Account</a>
+            <a [routerLink]="['/login']">Already have an account? Log in</a>
           </div>
         </div>
       </form>

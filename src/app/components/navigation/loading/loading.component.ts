@@ -9,13 +9,18 @@ import { MessagingService } from '../../../services/messaging.service';
   styleUrls: ['./loading.component.scss'],
 })
 export class LoadingComponent implements OnInit {
-  public loading: boolean = false;
+  public loadingLarge: boolean = false;
+  public loadingSmall: boolean = false;
 
   constructor(private messagingService: MessagingService) {}
 
   ngOnInit(): void {
     this.messagingService.isLoadedBig().subscribe((loading) => {
-      this.loading = loading;
+      this.loadingLarge = loading;
+      console.log({ loading });
+    });
+    this.messagingService.isLoadedSmall().subscribe((loading) => {
+      this.loadingSmall = loading;
       console.log({ loading });
     });
   }

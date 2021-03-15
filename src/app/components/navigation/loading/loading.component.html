@@ -1,1 +1,7 @@
-<img src="../../../../assets/videos/loading.gif" alt="" *ngIf="loading" />
+<div *ngIf="loadingLarge">
+  <img src="../../../../assets/videos/loading.gif" alt="" />
+</div>
+
+<div *ngIf="loadingSmall" class="text-center">
+  <img src="../../../../assets/videos/loadingSmall.gif" alt="" />
+</div>

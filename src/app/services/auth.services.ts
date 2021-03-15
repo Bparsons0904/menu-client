@@ -25,27 +25,26 @@ const getMe = gql`
   }
 `;
 /**
+ * Query for getting current user
+ */
+const getUsers = gql`
+  {
+    getUsers {
+      username
+      email
+    }
+  }
+`;
+/**
  * Mutation for registering user
  */
 const registerUser = gql`
   mutation registerUser(
-    $firstName: String!
-    $lastName: String!
     $username: String!
     $password: String!
     $email: String!
-    $phoneNumber: String
-    $role: String!
   ) {
-    registerUser(
-      firstName: $firstName
-      lastName: $lastName
-      username: $username
-      email: $email
-      password: $password
-      phoneNumber: $phoneNumber
-      role: $role
-    ) {
+    registerUser(username: $username, email: $email, password: $password) {
       user {
         id
       }
@@ -73,6 +72,8 @@ const loginUser = gql`
 export class AuthService {
   private userIsAuthenticated: BehaviorSubject<boolean>;
   private user: BehaviorSubject<User>;
+  private registeredUsers: BehaviorSubject<User[]>;
+  private rememberUser: boolean;
 
   constructor(
     private apollo: Apollo,
@@ -82,6 +83,7 @@ export class AuthService {
     // Initialize the observable variables with default values
     this.userIsAuthenticated = new BehaviorSubject<boolean>(false);
     this.user = new BehaviorSubject<User>(null);
+    this.registeredUsers = new BehaviorSubject<User[]>([]);
 
     /**
      * This is the 1st type of query, use when a observable is not needed/desired
@@ -143,6 +145,41 @@ export class AuthService {
   public getUser(): Observable<User> {
     return this.user;
   }
+
+  public getRegisteredUsers(): Observable<User[]> {
+    console.log(this.registeredUsers.getValue());
+
+    if (this.registeredUsers.getValue().length === 0) {
+      this.setRegisteredUsers();
+      console.log('Get users started');
+    }
+    return this.registeredUsers;
+  }
+
+  private setRegisteredUsers(): void {
+    const token =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYzBmNDUxLWNjYzYtNDJmMC1iODMwLTc4MmFmOTU2Yzg3MCIsImVtYWlsIjoiYWRtaW5AbWVudS5jb20iLCJ1c2VybmFtZSI6IkFkbWluIiwiaWF0IjoxNjE1NzM2NDI1LCJleHAiOjE2MTgzMjg0MjV9.5X6n4I-FFUsVXHx_Qn4Vj3fYnrP9G4n8abcA2ZlrPBI';
+    this.apollo
+      .watchQuery<any>({
+        query: gql`
+          {
+            getUsers {
+              username
+              email
+            }
+          }
+        `,
+        context: {
+          headers: new HttpHeaders().set('x-token', token),
+        },
+      })
+      .valueChanges.subscribe(({ data, loading, error }) => {
+        if (data?.getUsers && !error) {
+          this.registeredUsers.next(data.getUsers);
+        }
+      });
+  }
+
   /**
    * Return an observable to watch if user is authenticated
    */
@@ -216,10 +253,15 @@ export class AuthService {
    * @param login User selected username or email
    * @param password User inputted password
    */
-  public registerUser(user: User): void {
+  public registerUser(user: User, remember: boolean): void {
     // Set loading to true
+    console.log(user);
+    if (remember) {
+      this.rememberUser = true;
+    }
+
     this.apollo
-      .mutate({
+      .mutate<any>({
         mutation: registerUser,
         variables: {
           username: user.username,
@@ -234,15 +276,20 @@ export class AuthService {
       .subscribe(
         ({ data }) => {
           // Set token to returned data value
-          const token = data['registerUser']['token'];
+          if (this.registerUser) {
+            this.setToken(data.registerUser.token);
+            console.log('saving token');
+          }
+          this.messagingService.setLoadingSmall(false);
+          this.router.navigate(['/profile']);
           // Store token to local storage
-          localStorage.setItem('jobkikToken', token);
+          // localStorage.setItem('jobkikToken', token);
           // Set authentication to true
-          this.userIsAuthenticated.next(true);
+          // this.userIsAuthenticated.next(true);
           // Stop loading animation
 
           // Return to home page
-          this.router.navigate(['/']).then(() => location.reload());
+          // this.router.navigate(['/']).then(() => location.reload());
         },
         (error) => {
           // Stop loading
@@ -250,6 +297,10 @@ export class AuthService {
           console.log('there was an error sending the query', error);
         }
       );
+  }
+
+  private setToken(token: string): void {
+    localStorage.setItem('token', token);
   }
 
   /**

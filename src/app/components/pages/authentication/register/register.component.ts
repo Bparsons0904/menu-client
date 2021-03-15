@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../../services/auth.services';
 import {
   FormBuilder,
   Validators,
   FormControl,
   ValidatorFn,
+  FormGroup,
 } from '@angular/forms';
+
+// Services
+import { AuthService } from '../../../../services/auth.services';
+import { MessagingService } from '../../../../services/messaging.service';
+import { CustomvalidationService } from '../../../../services/customvalidation.service';
 
 @Component({
   selector: 'app-register',
@@ -13,30 +18,74 @@ import {
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
+  private registeredUsernames: string[] = [];
+  private registeredEmails: string[] = [];
+
   private usernameUnique: ValidatorFn = (control: FormControl) => {
-    console.log('validate');
-    if (control.dirty) {
+    if (control.dirty && this.registeredUsernames !== null) {
       console.log('dirty');
+      const usernameExist = this.registeredUsernames.includes(
+        control.value.toLowerCase()
+      );
+      return usernameExist
+        ? { usernameUnique: { value: control.value } }
+        : null;
     }
-    console.log(control);
-
-    if (control.touched) {
-      console.log('toched');
+    return null;
+  };
+  private emailUnique: ValidatorFn = (control: FormControl) => {
+    if (control.dirty && this.registeredEmails !== null) {
+      console.log('dirty');
+      const emailExist = this.registeredEmails.includes(control.value);
+      return emailExist ? { emailUnique: { value: control.value } } : null;
     }
-
     return null;
   };
 
-  registerForm = this.fb.group({
-    username: ['deadstyle', [Validators.required, this.usernameUnique]],
-    email: ['deadstyle@gmail.com', [Validators.required, Validators.email]],
-    password: ['!Mustangs95', [Validators.required, Validators.minLength(8)]],
-    // verifyPassword: ['', [Validators.required, Validators.minLength(8)]],
-  });
+  constructor(
+    private authService: AuthService,
+    private fb: FormBuilder,
+    private customValidator: CustomvalidationService,
+    private messagingService: MessagingService
+  ) {}
 
-  constructor(private authService: AuthService, private fb: FormBuilder) {}
+  public registerForm: FormGroup = this.fb.group(
+    {
+      username: ['deadstyle', [Validators.required, this.usernameUnique]],
+      email: [
+        'deadstyle@gmail.com',
+        [Validators.required, Validators.email, this.emailUnique],
+      ],
+      password: [
+        '!Mustangs95',
+        [Validators.required, this.customValidator.patternValidator()],
+      ],
+      confirmPassword: [
+        '!Mustangs95',
+        [Validators.required, Validators.minLength(8)],
+      ],
+      remember: [true],
+    },
+    {
+      validator: this.customValidator.matchPassword(
+        'password',
+        'confirmPassword'
+      ),
+    }
+  );
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.authService.getRegisteredUsers().subscribe((registeredUsers) => {
+      if (registeredUsers) {
+        registeredUsers.forEach((user) => {
+          console.log(user.username);
+
+          this.registeredUsernames.push(user.username.toLowerCase());
+          this.registeredEmails.push(user.email.toLowerCase());
+        });
+      }
+    });
+  }
 
   get username() {
     return this.registerForm.get('username');
@@ -47,8 +96,15 @@ export class RegisterComponent implements OnInit {
   get password() {
     return this.registerForm.get('password');
   }
+  get confirmPassword() {
+    return this.registerForm.get('confirmPassword');
+  }
 
   onSubmit(): void {
-    console.log('submitted');
+    this.messagingService.setLoadingSmall(true);
+    this.authService.registerUser(
+      this.registerForm.value,
+      this.registerForm.value.rememberUser
+    );
   }
 }

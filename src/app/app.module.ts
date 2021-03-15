@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 // Services
 import { AuthService } from './services/auth.services';
 import { MessagingService } from './services/messaging.service';
+import { CustomvalidationService } from './services/customvalidation.service';
 
 // Components
 import { HomeComponent } from './components/pages/home/home.component';
@@ -18,6 +19,7 @@ import { LoadingComponent } from './components/navigation/loading/loading.compon
 import { MessagesComponent } from './components/navigation/messages/messages.component';
 import { LoginComponent } from './components/pages/authentication/login/login.component';
 import { RegisterComponent } from './components/pages/authentication/register/register.component';
+import { ProfileComponent } from './components/pages/authentication/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { RegisterComponent } from './components/pages/authentication/register/re
     MessagesComponent,
     LoginComponent,
     RegisterComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,7 @@ import { RegisterComponent } from './components/pages/authentication/register/re
     HttpClientModule,
     ReactiveFormsModule,
   ],
-  providers: [AuthService, MessagingService],
+  providers: [AuthService, MessagingService, CustomvalidationService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
