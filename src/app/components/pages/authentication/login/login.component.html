@@ -1,32 +1,32 @@
 <div class="container">
   <div class="card shadow">
     <!-- <img src="../../../assets/login-img.jpg" alt="" class="card-img-top" /> -->
-    <div class="card-body">
+    <div class="card-body box">
       <h1>Admin Login</h1>
       <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <div class="mb-3">
-          <label class="form-label" for="loginInput">Username or Email</label>
+        <div class="input-container" [ngClass]="{'touched' : username.dirty}">
           <input
-            class="form-control"
-            id="username"
-            type="text"
-            name="username"
-            formControlName="username"
+          class="form-control"
+          id="username"
+          type="text"
+          name="username"
+          formControlName="username"
           />
+          <label for="loginInput">Username</label>
           <div *ngIf="username.invalid && (username.dirty || username.touched)">
             <div *ngIf="username.errors.required">Name is required.</div>
           </div>
         </div>
 
-        <div class="mb-3">
-          <label class="form-label" for="passwordInput">Password</label>
+        <div class="input-container" [ngClass]="{'touched' : password.dirty}">
           <input
-            class="form-control"
-            id="passwordInput"
-            type="password"
-            name="password"
-            formControlName="password"
+          class="form-control"
+          id="passwordInput"
+          type="password"
+          name="password"
+          formControlName="password"
           />
+          <label class="form-label" for="passwordInput">Password</label>
           <div *ngIf="password.invalid && password.touched">
             <div *ngIf="password.errors.required">Password is required.</div>
             <div *ngIf="password.errors.minlength">

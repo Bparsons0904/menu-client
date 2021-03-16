@@ -15,21 +15,21 @@ header {
   box-sizing: border-box;
   #title-group {
     display: flex;
-    img {
-      height: 2em;
-      padding: 0.5em 0 0.5em 1em;
-      width: auto;
-      display: none;
-    }
+    // img {
+    //   height: 2em;
+    //   padding: 0.5em 0 0.5em 1em;
+    //   width: auto;
+    //   display: none;
+    // }
     h1 {
       padding-left: 1em;
       font-size: 1.2em;
       line-height: 50px;
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      //   color: $color-dark;
       color: $color-light;
       font-weight: 800;
+      margin: 0px;
       //   font-family: $secondary-font;
       //   @include breakpoint(sm-tablet) {
       //     font-size: 1.7em;
@@ -179,7 +179,7 @@ header {
             font-size: 1.1em;
             padding: 0.25em;
             text-transform: uppercase;
-            a {
+            div {
               transition: all 0.5s ease;
               color: $color-light;
               position: relative;
@@ -189,7 +189,7 @@ header {
               //     font-size: 1.3em;
               //   }
             }
-            a:hover {
+            div:hover {
               transform: scale(1.1);
               color: $color-accent-dark;
               font-weight: 700;

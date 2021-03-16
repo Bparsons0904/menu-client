@@ -69,8 +69,8 @@
 
 <header id="header-nav">
   <div id="title-group">
-    <img src="" alt="" />
-    <div>
+    <!-- <img src="" alt="" /> -->
+    <div [routerLink]="['/']">
       <h1>Marine Menu</h1>
     </div>
   </div>
@@ -86,9 +86,8 @@
             <li>
               <div
                 class="menu-item active"
-                to="/"
-                id="menu-item-home"
-                onClick="{toggleCheckbox()}"
+                [routerLink]="['/']"
+                (click)="toggleCheckbox($event)"
                 data-content="Home"
               >
                 Home
@@ -97,51 +96,51 @@
             <li>
               <div
                 class="menu-item"
-                to="/events"
-                id="menu-item-events"
-                onClick="{toggleCheckbox()}"
-              >
-                Events
-              </div>
-            </li>
-            <li>
-              <div
-                class="menu-item"
-                to="/gallery"
-                id="menu-item-gallery"
-                onClick="{toggleCheckbox()}"
-              >
-                Gallery
-              </div>
-            </li>
-            <li>
-              <div
-                class="menu-item"
-                to="/news"
-                id="menu-item-news"
-                onClick="{toggleCheckbox()}"
-              >
-                News
-              </div>
-            </li>
-            <li>
-              <div
-                class="menu-item"
-                to="/chat"
-                id="menu-item-chat"
-                onClick="{toggleCheckbox()}"
-              >
-                Chat
-              </div>
-            </li>
-            <li>
-              <div
-                class="menu-item"
-                to="/about"
+                [routerLink]="['/about']"
                 id="menu-item-about"
-                onClick="{toggleCheckbox()}"
+                (click)="toggleCheckbox($event)"
               >
                 About
+              </div>
+            </li>
+            <li>
+              <div
+                class="menu-item"
+                [routerLink]="['/demo']"
+                id="menu-item-demo"
+                (click)="toggleCheckbox($event)"
+              >
+                Demo
+              </div>
+            </li>
+            <li>
+              <div
+                class="menu-item"
+                [routerLink]="['/pricing']"
+                id="menu-item-pricing"
+                (click)="toggleCheckbox($event)"
+              >
+                Pricing
+              </div>
+            </li>
+            <li *ngIf="isAuthenticated">
+              <div
+                class="menu-item"
+                [routerLink]="['/login']"
+                id="menu-item-login"
+                (click)="toggleCheckbox($event)"
+              >
+                User Login
+              </div>
+            </li>
+            <li *ngIf="!isAuthenticated">
+              <div
+                class="menu-item"
+                [routerLink]="['/logout']"
+                id="menu-item-logout"
+                (click)="toggleCheckbox($event)"
+              >
+                Logout
               </div>
             </li>
           </ul>
