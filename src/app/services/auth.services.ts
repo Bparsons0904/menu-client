@@ -37,7 +37,7 @@ export class AuthService {
       .valueChanges.subscribe(({ data, loading, error }) => {
         if (data?.getUsers && !error) {
           this.registeredUsers.next(data.getUsers);
-          this.messagingService.setLoadingBig(true);
+          this.messagingService.setLoadingBig(false);
         }
       });
     // Query the current user if token is saved
@@ -157,7 +157,7 @@ export class AuthService {
           // Stop loading
           // this.loading.next(false);
           // Set authentication to true
-          // this.userIsAuthenticated.next(true);
+          this.userIsAuthenticated.next(true);
           // if (this.user.completedProfile) {
           //   // Return to home page
           //   this.router.navigate(['/']).then(() => location.reload());
@@ -243,14 +243,18 @@ export class AuthService {
    *
    */
   public logout(): void {
+    console.log("We are here");
+    
     // Set authentication to false
-    // this.userIsAuthenticated.next(false);
+    this.userIsAuthenticated.next(false);
+    console.log(this.userIsAuthenticated.value);
+    
     // Clear user information from the application
     // this.userService.clearUser();
     // Remove token from storage
     // localStorage.setItem('jobkikToken', null);
     // Return to home page
-    this.router.navigate(['/menu']);
+    this.router.navigate(['/']);
   }
 }
 /**

@@ -27,6 +27,7 @@ import { UsersComponent } from './components/pages/admin/users/users.component';
 import { CustomersComponent } from './components/pages/admin/customers/customers.component';
 import { ThankyouComponent } from './components/pages/customer/thankyou/thankyou.component';
 import { WaitingComponent } from './components/navigation/waiting/waiting.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { WaitingComponent } from './components/navigation/waiting/waiting.compon
     GraphQLModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FontAwesomeModule,
   ],
   providers: [AuthService, MessagingService, CustomvalidationService],
   bootstrap: [AppComponent],

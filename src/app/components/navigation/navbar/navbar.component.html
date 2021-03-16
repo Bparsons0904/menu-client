@@ -123,7 +123,7 @@
                 Pricing
               </div>
             </li>
-            <li *ngIf="isAuthenticated">
+            <li *ngIf="!isAuthenticated">
               <div
                 class="menu-item"
                 [routerLink]="['/login']"
@@ -136,9 +136,19 @@
             <li *ngIf="!isAuthenticated">
               <div
                 class="menu-item"
+                [routerLink]="['/register']"
+                id="menu-item-register"
+                (click)="toggleCheckbox($event)"
+              >
+                Sign Up
+              </div>
+            </li>
+            <li *ngIf="isAuthenticated">
+              <div
+                class="menu-item"
                 [routerLink]="['/logout']"
                 id="menu-item-logout"
-                (click)="toggleCheckbox($event)"
+                (click)="logout($event)"
               >
                 Logout
               </div>

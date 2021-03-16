@@ -6,6 +6,7 @@ import {
   ValidatorFn,
   FormGroup,
 } from '@angular/forms';
+import { faEnvelope, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 
 // Services
 import { AuthService } from '../../../../services/auth.services';
@@ -18,6 +19,10 @@ import { CustomvalidationService } from '../../../../services/customvalidation.s
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
+  faEnvelope = faEnvelope;
+  faLock = faLock;
+  faUser = faUser;
+
   private registeredUsernames: string[] = [];
   private registeredEmails: string[] = [];
 
@@ -51,17 +56,17 @@ export class RegisterComponent implements OnInit {
 
   public registerForm: FormGroup = this.fb.group(
     {
-      username: ['deadstyle', [Validators.required, this.usernameUnique]],
+      username: ['', [Validators.required, this.usernameUnique]],
       email: [
-        'deadstyle@gmail.com',
+        '',
         [Validators.required, Validators.email, this.emailUnique],
       ],
       password: [
-        '!Mustangs95',
+        '',
         [Validators.required, this.customValidator.patternValidator()],
       ],
       confirmPassword: [
-        '!Mustangs95',
+        '',
         [Validators.required, Validators.minLength(8)],
       ],
       remember: [true],
@@ -98,6 +103,9 @@ export class RegisterComponent implements OnInit {
   }
   get confirmPassword() {
     return this.registerForm.get('confirmPassword');
+  }
+  get remember() {
+    return this.registerForm.get('remember');
   }
 
   onSubmit(): void {
