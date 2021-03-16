@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../../services/auth.services';
 import { FormBuilder, Validators } from '@angular/forms';
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
+import { MessagingService } from '../../../../services/messaging.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,11 @@ export class LoginComponent implements OnInit {
     password: ['', [Validators.required, Validators.minLength(8)]],
   });
 
-  constructor(private authService: AuthService, private fb: FormBuilder) {}
+  constructor(
+    private authService: AuthService,
+    private fb: FormBuilder,
+    private messagingService: MessagingService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -31,7 +36,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     console.log('submitted');
-
+    this.messagingService.setLoadingSmall(true);
     this.authService.loginUser(
       this.loginForm.value.username,
       this.loginForm.value.password

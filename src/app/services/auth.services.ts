@@ -144,12 +144,13 @@ export class AuthService {
       .subscribe(
         ({ data }) => {
           console.log(data);
-
+          this.messagingService.setLoadingSmall(false);
           // Add data to user using deconstructor
           // this.user = { ...data['loginUser']['user'] };
           // Set token to returned data value
           const token = data['loginUser']['token'];
           console.log({ token });
+          this.userIsAuthenticated.next(true);
           this.router.navigate(['/menu']);
           // Store token to local storage
           // localStorage.setItem('jobkikToken', token);
@@ -157,7 +158,6 @@ export class AuthService {
           // Stop loading
           // this.loading.next(false);
           // Set authentication to true
-          this.userIsAuthenticated.next(true);
           // if (this.user.completedProfile) {
           //   // Return to home page
           //   this.router.navigate(['/']).then(() => location.reload());
@@ -216,11 +216,11 @@ export class AuthService {
             console.log('saving token');
           }
           this.messagingService.setLoadingSmall(false);
+          this.userIsAuthenticated.next(true);
           this.router.navigate(['/profile']);
           // Store token to local storage
           // localStorage.setItem('jobkikToken', token);
           // Set authentication to true
-          // this.userIsAuthenticated.next(true);
           // Stop loading animation
 
           // Return to home page
@@ -243,12 +243,12 @@ export class AuthService {
    *
    */
   public logout(): void {
-    console.log("We are here");
-    
+    console.log('We are here');
+
     // Set authentication to false
     this.userIsAuthenticated.next(false);
     console.log(this.userIsAuthenticated.value);
-    
+
     // Clear user information from the application
     // this.userService.clearUser();
     // Remove token from storage

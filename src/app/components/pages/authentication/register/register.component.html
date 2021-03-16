@@ -201,7 +201,10 @@
           letter, 1 lowercase letter and 1 number
         </div>
       </div>
-      <div class="text-danger" *ngIf="confirmPassword.invalid && confirmPassword.touched">
+      <div
+        class="text-danger"
+        *ngIf="confirmPassword.invalid && confirmPassword.touched"
+      >
         <div *ngIf="confirmPassword.errors.required">
           Password Confirmation is required.
         </div>
@@ -210,6 +213,7 @@
         </div>
       </div>
       <div>
+        <app-waiting></app-waiting>
         <button
           class="btn-secondary"
           type="submit"
