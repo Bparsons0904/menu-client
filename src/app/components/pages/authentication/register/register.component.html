@@ -1,0 +1,233 @@
+<!-- <div class="container">
+  <div class="card shadow">
+
+    <div class="card-body">
+      <h1>Admin Login</h1>
+      <form class="form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label class="form-label" for="loginInput">Username</label>
+          <input
+            class="form-control"
+            id="username"
+            type="text"
+            name="username"
+            formControlName="username"
+          />
+          <div *ngIf="username.invalid && (username.dirty || username.touched)">
+            <div *ngIf="username.errors.required">Name is required.</div>
+            <div *ngIf="username.errors.usernameUnique">
+              Username {{ username.value }} is already taken.
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="loginInput">Email</label>
+          <input
+            class="form-control"
+            id="email"
+            type="email"
+            name="email"
+            formControlName="email"
+          />
+          <div *ngIf="email.invalid && (email.dirty || email.touched)">
+            <div *ngIf="email.errors.required">Email is required.</div>
+            <div *ngIf="email.errors.email">Must be a valid email format.</div>
+            <div *ngIf="email.errors.emailUnique">
+              Email {{ email.value }} is already taken.
+              <a href="#">Reset Password</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="passwordInput">Password</label>
+          <input
+            class="form-control"
+            id="passwordInput"
+            type="password"
+            name="password"
+            formControlName="password"
+          />
+          <div *ngIf="password.invalid && password.touched">
+            <div *ngIf="password.errors.required">Password is required.</div>
+            <div *ngIf="password.errors.minlength">
+              Password must be at least 8 characters long.
+            </div>
+            <div *ngIf="password.errors.invalidPassword">
+              Password should have minimum 8 characters, at least 1 uppercase
+              letter, 1 lowercase letter and 1 number
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="confirmPasswordInput"
+            >Confirm Password</label
+          >
+          <input
+            class="form-control"
+            id="confirmPasswordInput"
+            type="password"
+            name="confirmPassword"
+            formControlName="confirmPassword"
+          />
+          <div *ngIf="confirmPassword.invalid && confirmPassword.touched">
+            <div *ngIf="confirmPassword.errors.required">
+              Password Confirmation is required.
+            </div>
+            <div *ngIf="confirmPassword.errors?.passwordMismatch">
+              Passwords do not match.
+            </div>
+          </div>
+        </div>
+        <div>
+          <label for="remember">Remember Login</label>
+          <label class="switch">
+            <input
+              type="checkbox"
+              id="remember"
+              name="remember"
+              formControlName="remember"
+            />
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <app-messages></app-messages>
+        <app-loading></app-loading>
+        <div class="row m-3">
+          <button
+            type="submit"
+            value="Submit"
+            class="btn btn-primary"
+            [disabled]="!registerForm.valid"
+          >
+            Login
+          </button>
+          <div class="authentication text-center">
+            <a [routerLink]="['/login']">Already have an account? Log in</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div> -->
+
+<div id="authentication" class="container">
+  <div class="card">
+    <form class="form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="inner-card">
+        <h1>Create Account</h1>
+      </div>
+      <div class="input-container">
+        <div class="user-input">
+          <fa-icon [icon]="faUser"></fa-icon>
+          <input
+            class="form-control"
+            id="username"
+            type="text"
+            name="username"
+            placeholder="Username"
+            formControlName="username"
+          />
+        </div>
+        <div class="user-input">
+          <fa-icon [icon]="faEnvelope"></fa-icon>
+          <input
+            class="form-control"
+            id="email"
+            type="email"
+            name="email"
+            placeholder="E-mail"
+            formControlName="email"
+          />
+        </div>
+        <div class="user-input">
+          <fa-icon [icon]="faLock"></fa-icon>
+          <input
+            class="form-control"
+            id="passwordInput"
+            type="password"
+            name="password"
+            placeholder="Password"
+            formControlName="password"
+          />
+        </div>
+        <div class="user-input">
+          <fa-icon [icon]="faLock"></fa-icon>
+          <input
+            class="form-control"
+            id="confirmPasswordInput"
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            formControlName="confirmPassword"
+          />
+        </div>
+      </div>
+      <div class="remember">
+        <label class="switch">
+          <input
+            type="checkbox"
+            id="remember"
+            name="remember"
+            formControlName="remember"
+          />
+          <span class="slider round"></span>
+        </label>
+        <label class="switch-text" for="remember">Remember Me</label>
+        <!-- <fa-icon [icon]="faCheck" class="check" *ngIf="remember?.value"></fa-icon>
+        <fa-icon [icon]="faTimesCircle" class="cross" *ngIf="!remember?.value"></fa-icon> -->
+      </div>
+      <div class="text-danger" *ngIf="username.invalid && username.touched">
+        <div *ngIf="username.errors.required">Name is required.</div>
+        <div *ngIf="username.errors.usernameUnique">
+          Username {{ username.value }} is already taken.
+        </div>
+      </div>
+      <div class="text-danger" *ngIf="email.invalid && email.touched">
+        <div *ngIf="email.errors.required">Email is required.</div>
+        <div *ngIf="email.errors.email">Must be a valid email format.</div>
+        <div *ngIf="email.errors.emailUnique">
+          Email {{ email.value }} is already taken.
+          <a href="#">Reset Password</a>
+        </div>
+      </div>
+      <div class="text-danger" *ngIf="password.invalid && password.touched">
+        <div *ngIf="password.errors.required">Password is required.</div>
+        <div *ngIf="password.errors.minlength">
+          Password must be at least 8 characters long.
+        </div>
+        <div *ngIf="password.errors.invalidPassword">
+          Password should have minimum 8 characters, at least 1 uppercase
+          letter, 1 lowercase letter and 1 number
+        </div>
+      </div>
+      <div
+        class="text-danger"
+        *ngIf="confirmPassword.invalid && confirmPassword.touched"
+      >
+        <div *ngIf="confirmPassword.errors.required">
+          Password Confirmation is required.
+        </div>
+        <div *ngIf="confirmPassword.errors?.passwordMismatch">
+          Passwords do not match.
+        </div>
+      </div>
+      <div>
+        <app-waiting></app-waiting>
+        <button
+          class="btn-secondary"
+          type="submit"
+          value="Submit"
+          [ngClass]="{ disabled: !registerForm.valid }"
+          [disabled]="!registerForm.valid"
+        >
+          Register
+        </button>
+      </div>
+
+      <p class="change-type">
+        Already have an account? <span [routerLink]="['/login']">Login</span>
+      </p>
+    </form>
+  </div>
+</div>

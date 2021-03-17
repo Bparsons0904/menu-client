@@ -1,0 +1,171 @@
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" [routerLink]="['/']">JobKik</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarNav"
+    aria-controls="navbarNav"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['/']"
+          >Home <span class="sr-only">(current)</span></a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/joblist']">Job Search</a>
+      </li>
+      <li class="nav-item" *ngIf="user.role === 'employer'">
+        <a class="nav-link" [routerLink]="['/employers']">Job Posting</a>
+      </li>
+      <li
+        class="nav-item"
+        *ngIf="
+          userLoggedIn && user.completedProfile && user.role !== 'employer'
+        "
+      >
+        <a class="nav-link" [routerLink]="['/profile']">Profile</a>
+      </li>
+      <li class="nav-item" *ngIf="userLoggedIn && user.role !== 'employer'">
+        <a class="nav-link" [routerLink]="['/registercompany']"
+          >Register Company</a
+        >
+      </li>
+      <li
+        class="nav-item"
+        *ngIf="
+          userLoggedIn && !user.completedProfile && user.role !== 'employer'
+        "
+      >
+        <a class="nav-link" [routerLink]="['/createprofile']">Create Profile</a>
+      </li>
+      <li class="nav-item" *ngIf="!userLoggedIn">
+        <a class="nav-link" [routerLink]="['/login']">Login</a>
+      </li>
+      <li class="nav-item" *ngIf="userLoggedIn">
+        <a class="nav-link" (click)="this.authService.logout()">Logout</a>
+      </li>
+      <li></li>
+    </ul>
+  </div>
+</nav> -->
+
+<!-- <nav>
+  <h3>The Menu</h3>
+  <ul>
+    <li [routerLink]="['/about']">About</li>
+    <li [routerLink]="['/pricing']">Pricing</li>
+    <li [routerLink]="['/demo']">Demo</li>
+    <li [routerLink]="['/login']">Login</li>
+    <li (click)="logout()">Logout</li>
+  </ul>
+</nav> -->
+
+<header id="header-nav">
+  <div id="title-group">
+    <!-- <img src="" alt="" /> -->
+    <div [routerLink]="['/']">
+      <h1>Happy Payment Menu</h1>
+    </div>
+  </div>
+  <nav class="menu-wrap">
+    <input type="checkbox" class="toggler" id="toggler" />
+    <div class="hamburger">
+      <div></div>
+    </div>
+    <div class="menu">
+      <div>
+        <div>
+          <ul id="nav-list">
+            <li>
+              <div
+                class="menu-item active"
+                [routerLink]="['/']"
+                (click)="toggleCheckbox($event)"
+                data-content="Home"
+              >
+                Home
+              </div>
+            </li>
+            <li>
+              <div
+                class="menu-item"
+                [routerLink]="['/about']"
+                id="menu-item-about"
+                (click)="toggleCheckbox($event)"
+              >
+                About
+              </div>
+            </li>
+            <li>
+              <div
+                class="menu-item"
+                [routerLink]="['/demo']"
+                id="menu-item-demo"
+                (click)="toggleCheckbox($event)"
+              >
+                Demo
+              </div>
+            </li>
+            <li>
+              <div
+                class="menu-item"
+                [routerLink]="['/pricing']"
+                id="menu-item-pricing"
+                (click)="toggleCheckbox($event)"
+              >
+                Pricing
+              </div>
+            </li>
+            <li *ngIf="!isAuthenticated">
+              <div
+                class="menu-item"
+                [routerLink]="['/login']"
+                id="menu-item-login"
+                (click)="toggleCheckbox($event)"
+              >
+                User Login
+              </div>
+            </li>
+            <li *ngIf="!isAuthenticated">
+              <div
+                class="menu-item"
+                [routerLink]="['/register']"
+                id="menu-item-register"
+                (click)="toggleCheckbox($event)"
+              >
+                Sign Up
+              </div>
+            </li>
+            <li *ngIf="isAuthenticated">
+              <div
+                class="menu-item"
+                [routerLink]="['/profile']"
+                id="menu-item-profile"
+                (click)="toggleCheckbox($event)"
+              >
+                Profile
+              </div>
+            </li>
+            <li *ngIf="isAuthenticated">
+              <div
+                class="menu-item"
+                [routerLink]="['/logout']"
+                id="menu-item-logout"
+                (click)="logout($event)"
+              >
+                Logout
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>

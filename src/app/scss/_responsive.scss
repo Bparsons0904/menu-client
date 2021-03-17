@@ -1,0 +1,30 @@
+@mixin breakpoint($point) {
+  @if $point == phone {
+    @media (min-width: 375px) {
+      @content;
+    }
+  }
+  @if $point == sm-tablet {
+    @media (min-width: 768px) {
+      @content;
+    }
+  }
+  @if $point == lrg-tablet {
+    @media (min-width: 1024px) {
+      @content;
+    }
+  }
+  @if $point == sm-desktop {
+    @media (min-width: 1200px) {
+      @content;
+    }
+  }
+  @if $point == lrg-desktop {
+    @media (min-width: 1400px) {
+      @content;
+    }
+  }
+}
+
+
+// @include breakpoint(phone) { };

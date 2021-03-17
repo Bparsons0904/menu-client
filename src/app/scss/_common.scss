@@ -1,0 +1,330 @@
+body,
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+  padding: 0;
+  color: $color-dark;
+}
+
+a {
+  text-decoration: none;
+}
+
+i {
+  padding-right: 1em;
+}
+
+h1 {
+  font-weight: 600;
+}
+
+h3 {
+  font-weight: 500;
+}
+
+input,
+input:focus,
+input:focus-within {
+  -webkit-appearance: none;
+  border: none;
+  outline: none;
+  background-color: #00000000;
+  font-size: 1em;
+}
+
+input {
+  -webkit-appearance: none;
+  border-bottom: solid 1px $color-accent-dark;
+  margin: 1em 0;
+}
+
+.text-danger {
+  color: $color-warning !important;
+}
+
+.input-container {
+  padding: 1em 0;
+}
+// Common container css
+body {
+  font-family: $primary-font;
+  background-color: $color-light;
+  -webkit-appearance: none;
+  width: 100vw;
+  max-width: 100%;
+  box-sizing: border-box;
+  // min-height: 100vh;
+  // overflow: hidden;
+  overflow-x: hidden;
+  margin-top: 50px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+// iOS workaround
+form {
+  -webkit-appearance: none;
+  input {
+    -webkit-appearance: none;
+  }
+}
+
+.container {
+  padding: 1.5em;
+  margin: 0 auto;
+  @include breakpoint(sm-tablet) {
+    padding: 2.5em;
+  }
+}
+
+.card {
+  background-color: $color-light;
+  margin: 1em auto;
+  padding: 1em;
+  border-radius: 0.5em;
+  // max-width: 400px;
+}
+
+.card-shadow {
+  box-shadow: 3px 3px 12px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: inset -2px -2px 13px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 2px 9px 3px rgba(0, 0, 0, 0.2);
+}
+
+.inner-card {
+  padding: 1em 0.75em;
+  transform: translateY(-4em);
+  border-radius: 0.5em;
+  margin: 0 auto -3em;
+  background-color: $color-primary;
+  max-width: 250px;
+  background: linear-gradient(
+    to bottom,
+    $color-primary-light 0%,
+    $color-primary 40%,
+    $color-primary
+  );
+  h1 {
+    color: $color-light;
+    text-align: center;
+    font-weight: 600;
+  }
+}
+
+.img-shadow {
+  box-shadow: 0 10px 10px -5px rgba($color: #000000, $alpha: 0.5);
+}
+
+// Common buttons
+.button {
+  width: 5em;
+  height: 2em;
+  border-radius: 0.7em;
+  text-align: center;
+  line-height: 2em;
+  padding: 0.2em 1.5em;
+  font-weight: 500;
+  border: solid 2px;
+  transition: 0.5s;
+  width: 100%;
+  padding: 0.15em 0;
+  margin: 1em 0;
+  // box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
+  color: $color-light;
+  height: 2.5em;
+  font-size: 1.2em;
+}
+
+.button:hover {
+  box-shadow: unset;
+  transform: scale(0.98);
+}
+.disabled:hover {
+  // box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
+  transform: scale(1);
+}
+
+button.disabled {
+  background-color: grey !important;
+  background: unset;
+  .button:hover {
+    transform: unset;
+  }
+}
+
+.btn-primary {
+  @extend .button;
+  background-color: $color-primary;
+  border: none;
+  background: linear-gradient(
+    to bottom,
+    $color-primary-light 0%,
+    $color-primary 70%,
+    $color-primary
+  );
+}
+
+.btn-primary-outline {
+  @extend .button;
+  background-color: $color-accent-dark;
+  border-color: $color-primary;
+  background-color: #00000000;
+}
+
+.btn-secondary {
+  @extend .button;
+  border: unset;
+  background-color: $color-secondary-dark;
+  background: linear-gradient(
+    to bottom,
+    $color-secondary-light 0%,
+    $color-secondary-dark 70%,
+    $color-secondary-dark
+  );
+}
+
+.btn-accent-light {
+  @extend .button;
+  border: unset;
+  background-color: $color-accent-light;
+  background: linear-gradient(
+    to bottom,
+    $color-accent-light 0%,
+    $color-accent-dark 70%,
+    $color-accent-dark
+  );
+}
+
+.btn-accent-dark-outline {
+  @extend .button;
+  background-color: #00000000;
+  border-color: $color-accent-dark;
+}
+
+.extend-button {
+  @extend .img-shadow;
+  width: 80%;
+  max-width: 250px;
+  height: 2em;
+  text-align: center;
+  line-height: 2em;
+  font-size: 1.1em;
+  font-weight: 600;
+  color: $color-light;
+  background-color: $color-secondary-light;
+  margin: 0.5em auto;
+  border-radius: 1em;
+  transition: 0.5s;
+  i {
+    padding: 0 0 0 0.5em;
+  }
+}
+.extend-button:hover {
+  transform: scale(0.97);
+  box-shadow: none;
+}
+
+.hide-button {
+  // display: none;
+  @extend .extend-button;
+  i {
+    padding: 0 0.5em 0 0;
+  }
+}
+
+.remember {
+  // margin-top: 0px;
+  // line-height: 1em;
+  display: inline-flex;
+  font-size: 1.2em;
+}
+
+.check {
+  color: green;
+  line-height: 28px;
+  font-size: 20px;
+  padding-left: 0.75em;
+}
+.cross {
+  color: $color-warning;
+  line-height: 28px;
+  font-size: 20px;
+  padding-left: 0.75em;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 53px;
+  height: 28px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $color-warning;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: $color-light;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: green;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.switch-text {
+  padding-left: 1em;
+  line-height: 28px;
+}
+
+.text-center {
+  text-align: center;
+}

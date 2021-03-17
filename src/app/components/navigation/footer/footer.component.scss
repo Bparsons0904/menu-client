@@ -1,0 +1,19 @@
+@import "../../../../styles.scss";
+
+footer {
+  width: 100vw;
+  min-height: 50px;
+  background-color: $color-secondary-light;
+  font-size: 0.7em;
+  .row {
+    display: flex;
+    margin: auto;
+    flex-wrap: wrap;
+    div {
+      display: block;
+      padding: 5px;
+      margin: auto;
+      color: $color-light;
+    }
+  }
+}
