@@ -1,0 +1,82 @@
+<section class="cover">
+  <img src="../../../../../assets/videos/ezgif.com-gif-maker.gif" alt="" />
+  <!-- <video playsinline autobuffer autoplay muted loop>
+    <source
+      src="../../../../../assets/videos/ezgif.com-gif-maker.gif"
+      type="video/mp4"
+    />
+  </video> -->
+  <!-- <div class="top-title">
+    <h1>100% Offer Rate</h1>
+  </div>
+  <div class="bottom-title">
+    <h1>No Customer Pressure</h1>
+  </div> -->
+</section>
+<section class="home-body">
+  <div class="mini-card card-shadow">
+    <div class="mini-card-image">
+      <fa-icon [icon]="faThumbsUp" class="icon"></fa-icon>
+    </div>
+    <div class="mini-card-title">
+      <h3>Customer Satisfaction</h3>
+    </div>
+    <div class="mini-card-content">
+      Improve overall customer satisfaction by providing them the products and
+      services which enhance their overall purchase experience.
+    </div>
+  </div>
+  <div class="mini-card card-shadow">
+    <div class="mini-card-image">
+      <fa-icon [icon]="faAward" class="icon"></fa-icon>
+    </div>
+    <div class="mini-card-title">
+      <h3>Trusted Solutions</h3>
+    </div>
+    <div class="mini-card-content">
+      Provide industry leading and trusted productions to increase customer
+      retention.
+    </div>
+  </div>
+  <div class="mini-card card-shadow">
+    <div class="mini-card-image">
+      <fa-icon [icon]="faChartLine" class="icon"></fa-icon>
+    </div>
+    <div class="mini-card-title">
+      <h3>Improve Sales</h3>
+    </div>
+    <div class="mini-card-content">
+      Ensuring each customer is provided the correct products and services
+      increases overall sales.
+    </div>
+  </div>
+  <div class="mini-card card-shadow">
+    <div class="mini-card-image">
+      <fa-icon [icon]="faBan" class="icon"></fa-icon>
+    </div>
+    <div class="mini-card-title">
+      <h3>No Pressure</h3>
+    </div>
+    <div class="mini-card-content">
+      Simple, each to use navigation and product education ensures a simple,
+      pain free experience for your valued customers.
+    </div>
+  </div>
+
+  <div class="get-started">
+    <button
+      class="btn-secondary"
+      [routerLink]="['/register']"
+      *ngIf="!isAuthenticated"
+    >
+      Get Started
+    </button>
+    <button
+      class="btn-secondary"
+      [routerLink]="['/profile']"
+      *ngIf="isAuthenticated"
+    >
+      View Account
+    </button>
+  </div>
+</section>

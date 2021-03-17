@@ -71,7 +71,7 @@
   <div id="title-group">
     <!-- <img src="" alt="" /> -->
     <div [routerLink]="['/']">
-      <h1>Marine Menu</h1>
+      <h1>Happy Payment Menu</h1>
     </div>
   </div>
   <nav class="menu-wrap">
@@ -141,6 +141,16 @@
                 (click)="toggleCheckbox($event)"
               >
                 Sign Up
+              </div>
+            </li>
+            <li *ngIf="isAuthenticated">
+              <div
+                class="menu-item"
+                [routerLink]="['/profile']"
+                id="menu-item-profile"
+                (click)="toggleCheckbox($event)"
+              >
+                Profile
               </div>
             </li>
             <li *ngIf="isAuthenticated">

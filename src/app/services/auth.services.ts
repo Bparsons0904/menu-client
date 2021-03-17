@@ -128,8 +128,9 @@ export class AuthService {
    * @param login User selected username or email
    * @param password User inputted password
    */
-  public loginUser(login: string, password: string): void {
+  public loginUser(login: string, password: string, remember: boolean): void {
     console.log('Loging iN');
+    this.rememberUser = remember;
 
     // Set loading to true
     // Start mutation query
@@ -150,6 +151,9 @@ export class AuthService {
           // Set token to returned data value
           const token = data['loginUser']['token'];
           console.log({ token });
+          if (this.rememberUser) {
+            this.setUserToken(token);
+          }
           this.userIsAuthenticated.next(true);
           this.router.navigate(['/menu']);
           // Store token to local storage
@@ -172,7 +176,8 @@ export class AuthService {
         },
         (error) => {
           // Stop loading
-
+          this.messagingService.setLoadingSmall(false);
+          this.messagingService.setErrorMessage(error.message);
           console.log(
             '%cThere was an error sending the login query',
             'background: #222; color: #bada55',
@@ -190,10 +195,8 @@ export class AuthService {
    */
   public registerUser(user: User, remember: boolean): void {
     // Set loading to true
-    console.log(user);
-    if (remember) {
-      this.rememberUser = true;
-    }
+
+    this.rememberUser = remember;
 
     this.apollo
       .mutate<any>({
@@ -212,7 +215,7 @@ export class AuthService {
         ({ data }) => {
           // Set token to returned data value
           if (this.registerUser) {
-            this.setToken(data.registerUser.token);
+            this.setUserToken(data.registerUser.token);
             console.log('saving token');
           }
           this.messagingService.setLoadingSmall(false);
@@ -229,13 +232,9 @@ export class AuthService {
         (error) => {
           // Stop loading
 
-          console.log('there was an error sending the query', error);
+          console.log('there was an error sending the query', error.messages);
         }
       );
-  }
-
-  private setToken(token: string): void {
-    localStorage.setItem('token', token);
   }
 
   /**

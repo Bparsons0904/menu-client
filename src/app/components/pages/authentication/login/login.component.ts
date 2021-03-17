@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../../services/auth.services';
 import { FormBuilder, Validators } from '@angular/forms';
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from '../../../../services/auth.services';
 import { MessagingService } from '../../../../services/messaging.service';
 
 @Component({
@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   loginForm = this.fb.group({
     username: ['', [Validators.required]],
     password: ['', [Validators.required, Validators.minLength(8)]],
+    remember: [true],
   });
 
   constructor(
@@ -33,13 +34,16 @@ export class LoginComponent implements OnInit {
   get password() {
     return this.loginForm.get('password');
   }
+  get remember() {
+    return this.loginForm.get('remember');
+  }
 
   onSubmit(): void {
-    console.log('submitted');
     this.messagingService.setLoadingSmall(true);
     this.authService.loginUser(
       this.loginForm.value.username,
-      this.loginForm.value.password
+      this.loginForm.value.password,
+      this.loginForm.value.remember
     );
   }
 }

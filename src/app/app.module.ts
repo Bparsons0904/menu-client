@@ -12,7 +12,7 @@ import { MessagingService } from './services/messaging.service';
 import { CustomvalidationService } from './services/customvalidation.service';
 
 // Components
-import { HomeComponent } from './components/pages/home/home.component';
+import { HomeComponent } from './components/pages/general/home/home.component';
 import { FooterComponent } from './components/navigation/footer/footer.component';
 import { NavbarComponent } from './components/navigation/navbar/navbar.component';
 import { LoadingComponent } from './components/navigation/loading/loading.component';
