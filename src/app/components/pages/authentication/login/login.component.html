@@ -1,1 +1,129 @@
-<p>login works!</p>
+<!-- <div class="container">
+  <div class="card shadow">
+    <div class="card-body">
+      <h1>Account Login</h1>
+      <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="input-container" [ngClass]="{'touched' : username.dirty}">
+          <input
+          class="form-control"
+          id="username"
+          type="text"
+          name="username"
+          formControlName="username"
+          />
+          <label for="loginInput">Username</label>
+          <div *ngIf="username.invalid && (username.dirty || username.touched)">
+            <div *ngIf="username.errors.required">Name is required.</div>
+          </div>
+        </div>
+
+        <div class="input-container" [ngClass]="{'touched' : password.dirty}">
+          <input
+          class="form-control"
+          id="passwordInput"
+          type="password"
+          name="password"
+          formControlName="password"
+          />
+          <label class="form-label" for="passwordInput">Password</label>
+          <div *ngIf="password.invalid && password.touched">
+            <div *ngIf="password.errors.required">Password is required.</div>
+            <div *ngIf="password.errors.minlength">
+              Password must be at least 8 characters long.
+            </div>
+          </div>
+        </div>
+        <app-messages></app-messages>
+        <div class="row m-3">
+          <button
+            type="submit"
+            value="Submit"
+            class="btn btn-primary"
+            [disabled]="!loginForm.valid"
+          >
+            Login
+          </button>
+          <div class="authentication text-center">
+            <a [routerLink]="['/register']">Not registered? Create Account</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div> -->
+
+<div id="authentication" class="container">
+  <div class="card">
+    <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="inner-card">
+        <h1>Account Login</h1>
+      </div>
+      <div class="input-container">
+        <div class="user-input">
+          <fa-icon [icon]="faEnvelope"></fa-icon>
+          <input
+            class="form-control"
+            id="username"
+            type="text"
+            name="username"
+            placeholder="Username or Email"
+            formControlName="username"
+          />
+        </div>
+        <div class="user-input">
+          <fa-icon [icon]="faLock"></fa-icon>
+          <input
+            class="form-control"
+            id="passwordInput"
+            type="password"
+            name="password"
+            placeholder="Password"
+            formControlName="password"
+          />
+        </div>
+      </div>
+
+      <div class="text-danger" *ngIf="username.invalid && username.touched">
+        <div *ngIf="username?.errors?.required">Name is required.</div>
+      </div>
+      <div class="text-danger" *ngIf="password.invalid && password.touched">
+        <div *ngIf="password?.errors?.required">Password is required.</div>
+        <div *ngIf="password?.errors?.minlength">
+          Password must be at least 8 characters long.
+        </div>
+      </div>
+      <div class="remember">
+        <label class="switch">
+          <input
+            type="checkbox"
+            id="remember"
+            name="remember"
+            formControlName="remember"
+          />
+          <span class="slider round"></span>
+        </label>
+        <label class="switch-text" for="remember">Remember Me</label>
+        <!-- <fa-icon [icon]="faCheck" class="check" *ngIf="remember?.value"></fa-icon>
+        <fa-icon [icon]="faTimesCircle" class="cross" *ngIf="!remember?.value"></fa-icon> -->
+      </div>
+      <div>
+        <app-waiting></app-waiting>
+        <app-messages></app-messages>
+        <button
+          class="btn-secondary"
+          type="submit"
+          value="Submit"
+          [ngClass]="{ disabled: !loginForm.valid }"
+          [disabled]="!loginForm.valid"
+        >
+          Login
+        </button>
+      </div>
+
+      <p class="change-type">
+        Don't have an account?
+        <span [routerLink]="['/register']">Create Account</span>
+      </p>
+    </form>
+  </div>
+</div>

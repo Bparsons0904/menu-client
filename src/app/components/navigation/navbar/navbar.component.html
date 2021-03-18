@@ -56,12 +56,116 @@
   </div>
 </nav> -->
 
-<nav>
+<!-- <nav>
   <h3>The Menu</h3>
   <ul>
-    <li>About</li>
-    <li>Pricing</li>
-    <li>Demo</li>
-    <li>Login</li>
+    <li [routerLink]="['/about']">About</li>
+    <li [routerLink]="['/pricing']">Pricing</li>
+    <li [routerLink]="['/demo']">Demo</li>
+    <li [routerLink]="['/login']">Login</li>
+    <li (click)="logout()">Logout</li>
   </ul>
-</nav>
+</nav> -->
+
+<header id="header-nav">
+  <div id="title-group">
+    <!-- <img src="" alt="" /> -->
+    <div [routerLink]="['/']">
+      <h1>Happy Payment Menu</h1>
+    </div>
+  </div>
+  <nav class="menu-wrap">
+    <input type="checkbox" class="toggler" id="toggler" />
+    <div class="hamburger">
+      <div></div>
+    </div>
+    <div class="menu">
+      <div>
+        <div>
+          <ul id="nav-list">
+            <li>
+              <div
+                class="menu-item active"
+                [routerLink]="['/']"
+                (click)="toggleCheckbox($event)"
+                data-content="Home"
+              >
+                Home
+              </div>
+            </li>
+            <li>
+              <div
+                class="menu-item"
+                [routerLink]="['/about']"
+                id="menu-item-about"
+                (click)="toggleCheckbox($event)"
+              >
+                About
+              </div>
+            </li>
+            <li>
+              <div
+                class="menu-item"
+                [routerLink]="['/demo']"
+                id="menu-item-demo"
+                (click)="toggleCheckbox($event)"
+              >
+                Demo
+              </div>
+            </li>
+            <li>
+              <div
+                class="menu-item"
+                [routerLink]="['/pricing']"
+                id="menu-item-pricing"
+                (click)="toggleCheckbox($event)"
+              >
+                Pricing
+              </div>
+            </li>
+            <li *ngIf="!isAuthenticated">
+              <div
+                class="menu-item"
+                [routerLink]="['/login']"
+                id="menu-item-login"
+                (click)="toggleCheckbox($event)"
+              >
+                User Login
+              </div>
+            </li>
+            <li *ngIf="!isAuthenticated">
+              <div
+                class="menu-item"
+                [routerLink]="['/register']"
+                id="menu-item-register"
+                (click)="toggleCheckbox($event)"
+              >
+                Sign Up
+              </div>
+            </li>
+            <li *ngIf="isAuthenticated">
+              <div
+                class="menu-item"
+                [routerLink]="['/profile']"
+                id="menu-item-profile"
+                (click)="toggleCheckbox($event)"
+              >
+                Profile
+              </div>
+            </li>
+            <li *ngIf="isAuthenticated">
+              <div
+                class="menu-item"
+                [routerLink]="['/logout']"
+                id="menu-item-logout"
+                (click)="logout($event)"
+              >
+                Logout
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
