@@ -13,6 +13,37 @@
     <h1>No Customer Pressure</h1>
   </div> -->
 </section>
+<section id="cta">
+  <div class="intro">
+    <h1>Happy Payment Menu</h1>
+    <h2>Online Financing Menu System</h2>
+  </div>
+  <div class="cta">
+    <h2>Select products</h2>
+    <hr />
+    <h2>Send to every customer</h2>
+    <hr />
+    <h2>Let them decide for themselves</h2>
+    <hr />
+    <h2>It's really that simple!</h2>
+  </div>
+  <div class="get-started">
+    <button
+      class="btn-secondary"
+      [routerLink]="['/demo']"
+      *ngIf="!isAuthenticated"
+    >
+      Learn More
+    </button>
+    <button
+      class="btn-secondary"
+      [routerLink]="['/profile']"
+      *ngIf="isAuthenticated"
+    >
+      View Account
+    </button>
+  </div>
+</section>
 <section class="home-body">
   <div class="mini-card card-shadow">
     <div class="mini-card-image">

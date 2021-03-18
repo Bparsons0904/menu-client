@@ -60,6 +60,12 @@ body {
   // overflow: hidden;
   overflow-x: hidden;
   margin-top: 50px;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 html {
@@ -137,6 +143,7 @@ form {
   // box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
   color: $color-light;
   height: 2.5em;
+  max-width: 400px;
   font-size: 1.2em;
 }
 
