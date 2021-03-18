@@ -1,0 +1,41 @@
+@import "../../../../../styles.scss";
+
+#pricing {
+  margin: 100px 0px 0px;
+}
+
+h2 {
+  margin-bottom: 1em;
+  > span {
+    font-size: 0.7em;
+  }
+}
+h4 {
+  margin-bottom: 1em;
+  margin-left: 1em;
+  fa-icon {
+    color: $color-accent-light;
+    margin-right: 1em;
+  }
+}
+
+#yt-container {
+  margin-bottom: 50px;
+  position: relative;
+  youtube-player {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+// youtube-player {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   bottom: 0;
+//   right: 0;
+//   width: 100%;
+//   height: 100%;
+// }

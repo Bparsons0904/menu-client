@@ -11,6 +11,9 @@ import { AuthService } from './services/auth.services';
 import { MessagingService } from './services/messaging.service';
 import { CustomvalidationService } from './services/customvalidation.service';
 
+// Modules
+import { YouTubePlayerModule } from '@angular/youtube-player';
+
 // Components
 import { HomeComponent } from './components/pages/general/home/home.component';
 import { FooterComponent } from './components/navigation/footer/footer.component';
@@ -27,6 +30,7 @@ import { UsersComponent } from './components/pages/admin/users/users.component';
 import { CustomersComponent } from './components/pages/admin/customers/customers.component';
 import { ThankyouComponent } from './components/pages/customer/thankyou/thankyou.component';
 import { WaitingComponent } from './components/navigation/waiting/waiting.component';
+
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
@@ -55,6 +59,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     HttpClientModule,
     ReactiveFormsModule,
     FontAwesomeModule,
+    YouTubePlayerModule,
   ],
   providers: [AuthService, MessagingService, CustomvalidationService],
   bootstrap: [AppComponent],
