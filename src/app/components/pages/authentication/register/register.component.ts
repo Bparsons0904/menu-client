@@ -28,7 +28,6 @@ export class RegisterComponent implements OnInit {
 
   private usernameUnique: ValidatorFn = (control: FormControl) => {
     if (control.dirty && this.registeredUsernames !== null) {
-      console.log('dirty');
       const usernameExist = this.registeredUsernames.includes(
         control.value.toLowerCase()
       );
@@ -40,7 +39,6 @@ export class RegisterComponent implements OnInit {
   };
   private emailUnique: ValidatorFn = (control: FormControl) => {
     if (control.dirty && this.registeredEmails !== null) {
-      console.log('dirty');
       const emailExist = this.registeredEmails.includes(control.value);
       return emailExist ? { emailUnique: { value: control.value } } : null;
     }
@@ -56,13 +54,19 @@ export class RegisterComponent implements OnInit {
 
   public registerForm: FormGroup = this.fb.group(
     {
-      username: ['', [Validators.required, this.usernameUnique]],
-      email: ['', [Validators.required, Validators.email, this.emailUnique]],
+      username: ['asdfasdf', [Validators.required, this.usernameUnique]],
+      email: [
+        'asfasfd@gmail.com',
+        [Validators.required, Validators.email, this.emailUnique],
+      ],
       password: [
-        '',
+        '!Mustangs95',
         [Validators.required, this.customValidator.patternValidator()],
       ],
-      confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: [
+        '!Mustangs95',
+        [Validators.required, Validators.minLength(8)],
+      ],
       remember: [true],
     },
     {
@@ -77,8 +81,6 @@ export class RegisterComponent implements OnInit {
     this.authService.getRegisteredUsers().subscribe((registeredUsers) => {
       if (registeredUsers) {
         registeredUsers.forEach((user) => {
-          console.log(user.username);
-
           this.registeredUsernames.push(user.username.toLowerCase());
           this.registeredEmails.push(user.email.toLowerCase());
         });
@@ -103,7 +105,6 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.messagingService.setLoadingSmall(true);
     this.authService.registerUser(
       this.registerForm.value,
       this.registerForm.value.rememberUser

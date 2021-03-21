@@ -1,0 +1,16 @@
+@import "../../../../../styles.scss";
+
+#profile {
+  margin: 100px auto 50px;
+}
+
+.btn-primary {
+  height: 75px;
+
+  p {
+    color: $color-light;
+    padding: 10px;
+    line-height: 7px;
+    font-weight: 600;
+  }
+}

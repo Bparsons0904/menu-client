@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './services/auth.services';
 import { MessagingService } from './services/messaging.service';
 import { CustomvalidationService } from './services/customvalidation.service';
+import { ProfileService } from './services/profile.service';
 
 // Modules
 import { YouTubePlayerModule } from '@angular/youtube-player';
@@ -22,7 +23,7 @@ import { LoadingComponent } from './components/navigation/loading/loading.compon
 import { MessagesComponent } from './components/navigation/messages/messages.component';
 import { LoginComponent } from './components/pages/authentication/login/login.component';
 import { RegisterComponent } from './components/pages/authentication/register/register.component';
-import { ProfileComponent } from './components/pages/authentication/profile/profile.component';
+import { ProfileComponent } from './components/pages//user/profile/profile.component';
 import { AboutComponent } from './components/pages/general/about/about.component';
 import { PricingComponent } from './components/pages/general/pricing/pricing.component';
 import { DemoComponent } from './components/pages/general/demo/demo.component';
@@ -61,7 +62,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FontAwesomeModule,
     YouTubePlayerModule,
   ],
-  providers: [AuthService, MessagingService, CustomvalidationService],
+  providers: [
+    AuthService,
+    MessagingService,
+    CustomvalidationService,
+    ProfileService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

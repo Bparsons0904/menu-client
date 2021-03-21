@@ -67,86 +67,86 @@
 //   font-size: 12px;
 // }
 
-.card-with-header {
-  // margin: auto auto;
-  max-width: 300px;
-  // padding: 1em;
-  box-shadow: 2px 2px 9px 3px rgba(0, 0, 0, 0.2);
-  @include breakpoint(sm-desktop) {
-    transform: translateX(120%);
-  }
-  .input-container {
-    // padding: 1em 0;
-    padding-bottom: 0px;
-    .user-input {
-      -webkit-appearance: none;
-      box-sizing: border-box;
-      display: flex;
-      color: $color-secondary-dark;
-      font-size: 1.1em;
-      border-color: $color-accent-dark;
-      border: none;
-      margin: 1em auto;
-      padding: 1em 1em;
-      width: 100%;
-      border-radius: 25px;
-      box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #ffffff;
-      fa-icon {
-        color: $color-dark;
-        padding-right: 0.5em;
-      }
-      input {
-        -webkit-appearance: none;
-        box-sizing: border-box;
-        display: block;
-        padding: 0;
-        margin: 0;
-        border: none;
-        width: 100%;
-      }
-      input::placeholder {
-        -webkit-appearance: none;
-        padding: 0 0;
-      }
+// .card-with-header {
+//   // margin: auto auto;
+//   max-width: 300px;
+//   // padding: 1em;
+//   box-shadow: 2px 2px 9px 3px rgba(0, 0, 0, 0.2);
+//   @include breakpoint(sm-desktop) {
+//     transform: translateX(120%);
+//   }
+//   .input-container {
+//     // padding: 1em 0;
+//     padding-bottom: 0px;
+//     .user-input {
+//       -webkit-appearance: none;
+//       box-sizing: border-box;
+//       display: flex;
+//       color: $color-secondary-dark;
+//       font-size: 1.1em;
+//       border-color: $color-accent-dark;
+//       border: none;
+//       margin: 1em auto;
+//       padding: 1em 1em;
+//       width: 100%;
+//       border-radius: 25px;
+//       box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #ffffff;
+//       fa-icon {
+//         color: $color-dark;
+//         padding-right: 0.5em;
+//       }
+//       input {
+//         -webkit-appearance: none;
+//         box-sizing: border-box;
+//         display: block;
+//         padding: 0;
+//         margin: 0;
+//         border: none;
+//         width: 100%;
+//       }
+//       input::placeholder {
+//         -webkit-appearance: none;
+//         padding: 0 0;
+//       }
 
-      input:focus,
-      input:focus-within {
-        -webkit-appearance: none;
-        // padding-left: 1em;
-      }
-    }
-  }
+//       input:focus,
+//       input:focus-within {
+//         -webkit-appearance: none;
+//         // padding-left: 1em;
+//       }
+//     }
+//   }
 
-  // .button {
-  //   width: 100%;
-  //   padding: 0.15em 0;
-  //   margin: 1em 0;
-  //   box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
-  //   color: $color-light;
-  //   height: 2.5em;
-  //   font-size: 1.2em;
-  // }
-  // .button:hover {
-  //   box-shadow: unset;
-  //   transform: scale(0.98);
-  // }
-  // .disabled:hover {
-  //   box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
-  //   transform: scale(1);
-  // }
+//   // .button {
+//   //   width: 100%;
+//   //   padding: 0.15em 0;
+//   //   margin: 1em 0;
+//   //   box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
+//   //   color: $color-light;
+//   //   height: 2.5em;
+//   //   font-size: 1.2em;
+//   // }
+//   // .button:hover {
+//   //   box-shadow: unset;
+//   //   transform: scale(0.98);
+//   // }
+//   // .disabled:hover {
+//   //   box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
+//   //   transform: scale(1);
+//   // }
 
-  // button.disabled {
-  //   background-color: grey !important;
-  //   background: unset;
-  //   .button:hover {
-  //     transform: unset;
-  //   }
-  // }
-  .change-type {
-    font-size: 1.1em;
-    color: $color-secondary-dark;
-    span {
-      color: $color-secondary-light;
-    }
-  }
-}
+//   // button.disabled {
+//   //   background-color: grey !important;
+//   //   background: unset;
+//   //   .button:hover {
+//   //     transform: unset;
+//   //   }
+//   // }
+//   .change-type {
+//     font-size: 1.1em;
+//     color: $color-secondary-dark;
+//     span {
+//       color: $color-secondary-light;
+//     }
+//   }
+// }

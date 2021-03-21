@@ -5,14 +5,18 @@ import gql from 'graphql-tag';
  */
 export const getMe = gql`
   {
-    me {
+    getMe {
       id
       username
       email
       profile {
+        id
         firstName
         lastName
         role
+        email
+        phone
+        image
       }
     }
   }
@@ -34,14 +38,12 @@ export const getUsers = gql`
  * Mutation for registering user
  */
 export const registerUser = gql`
-  mutation registerUser(
-    $username: String!
-    $password: String!
-    $email: String!
-  ) {
-    registerUser(username: $username, email: $email, password: $password) {
+  mutation createUser($username: String!, $password: String!, $email: String!) {
+    createUser(username: $username, email: $email, password: $password) {
       user {
         id
+        username
+        email
       }
       token
     }
@@ -56,7 +58,86 @@ export const loginUser = gql`
       token
       user {
         id
+        username
+        email
+        profile {
+          firstName
+          lastName
+          role
+          email
+          phone
+          image
+        }
       }
     }
+  }
+`;
+
+////////////////////////////////////////////////////////
+// Profile Queries
+////////////////////////////////////////////////////////
+
+/**
+ * Mutation for setting user profile
+ */
+export const createProfile = gql`
+  mutation createProfile(
+    $firstName: String!
+    $lastName: String!
+    $email: String!
+    $phone: Float!
+    $image: String
+    $title: String!
+  ) {
+    createProfile(
+      createProfile: {
+        firstName: $firstName
+        lastName: $lastName
+        email: $email
+        phone: $phone
+        image: $image
+        title: $title
+      }
+    ) {
+      id
+      username
+      email
+      profile {
+        id
+        firstName
+        lastName
+        role
+        email
+        phone
+        image
+      }
+    }
+  }
+`;
+
+/**
+ * Mutation for setting user profile
+ */
+export const updateProfile = gql`
+  mutation updateProfile(
+    $id: String!
+    $firstName: String!
+    $lastName: String!
+    $email: String!
+    $phone: Float!
+    $image: String
+    $title: String!
+  ) {
+    updateProfile(
+      updateProfile: {
+        id: $id
+        firstName: $firstName
+        lastName: $lastName
+        email: $email
+        phone: $phone
+        image: $image
+        title: $title
+      }
+    )
   }
 `;
