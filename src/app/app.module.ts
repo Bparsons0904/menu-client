@@ -33,6 +33,7 @@ import { ThankyouComponent } from './components/pages/customer/thankyou/thankyou
 import { WaitingComponent } from './components/navigation/waiting/waiting.component';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { PasswordresetComponent } from './components/pages/authentication/passwordreset/passwordreset.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     CustomersComponent,
     ThankyouComponent,
     WaitingComponent,
+    PasswordresetComponent,
   ],
   imports: [
     BrowserModule,

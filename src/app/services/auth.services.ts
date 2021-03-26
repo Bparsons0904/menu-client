@@ -36,9 +36,6 @@ export class AuthService {
     this.apollo
       .watchQuery<any>({
         query: query.getUsers,
-        context: {
-          headers: new HttpHeaders().set('x-token', this.adminToken),
-        },
       })
       .valueChanges.subscribe(({ data, loading, error }) => {
         if (data?.getUsers && !error) {
@@ -124,9 +121,6 @@ export class AuthService {
     this.apollo
       .watchQuery<data>({
         query: query.getUsers,
-        context: {
-          headers: new HttpHeaders().set('x-token', this.adminToken),
-        },
       })
       .valueChanges.subscribe(({ data }) => {
         if (data?.getUsers) {
@@ -166,9 +160,6 @@ export class AuthService {
     this.apollo
       .mutate<data>({
         mutation: query.loginUser,
-        context: {
-          headers: new HttpHeaders().set('x-token', environment.admin),
-        },
         variables: {
           username: login,
           password: password,
@@ -196,6 +187,65 @@ export class AuthService {
           this.messagingService.setErrorMessage(error.message);
           console.log(
             '%cThere was an error sending the login query',
+            'background: #222; color: #bada55',
+            error.message
+          );
+        }
+      );
+  }
+
+  public changePassword(id: string, password: string, remember: boolean): void {
+    console.log(id, password, remember);
+
+    // Store remember to check after load
+    this.rememberUser = remember;
+    // Start loading service
+    this.messagingService.setLoadingSmall(true);
+    // const token: string = authHelpers.getUserToken();
+    // Custom type for returned data
+    type data = {
+      changePassword: {
+        token: string;
+        user: User;
+      };
+    };
+    // Start mutation query
+    this.apollo
+      .mutate<data>({
+        mutation: query.changePassword,
+        // context: {
+        //   headers: new HttpHeaders().set('x-token', token),
+        // },
+        variables: {
+          id: id,
+          password: password,
+        },
+      })
+      .subscribe(
+        ({ data }) => {
+          console.log(data);
+          console.log(data.changePassword);
+
+          // Store token if remember selected
+          if (this.rememberUser) {
+            const token = data?.changePassword?.token;
+            authHelpers.setUserToken(token);
+          }
+          // Set user and authentication
+          this.setUser(data?.changePassword?.user);
+          // Route depending on profile status
+          if (data?.changePassword?.user?.profile === null) {
+            this.router.navigate(['/profile']);
+          } else {
+            this.router.navigate(['/menu']);
+          }
+        },
+        (error) => {
+          // Stop loading and display error message
+          this.messagingService.setLoadingSmall(false);
+          this.messagingService.setErrorMessage(error.message);
+          console.log(
+            '%cThere was an error sending the updated password',
             'background: #222; color: #bada55',
             error.message
           );

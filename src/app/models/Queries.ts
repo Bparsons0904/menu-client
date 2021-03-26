@@ -72,6 +72,29 @@ export const loginUser = gql`
     }
   }
 `;
+/**
+ * Mutation for changing user password
+ */
+export const changePassword = gql`
+  mutation changePassword($id: String!, $password: String!) {
+    changePassword(id: $id, password: $password) {
+      token
+      user {
+        id
+        username
+        email
+        profile {
+          firstName
+          lastName
+          role
+          email
+          phone
+          image
+        }
+      }
+    }
+  }
+`;
 
 ////////////////////////////////////////////////////////
 // Profile Queries
