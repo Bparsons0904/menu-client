@@ -86,6 +86,10 @@ export class PasswordresetComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    this.authService.changePassword(this.id, 'asdfasdf', true);
+    this.authService.changePassword(
+      this.id,
+      this.changeForm.value.password,
+      true
+    );
   }
 }

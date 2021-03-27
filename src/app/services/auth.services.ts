@@ -31,7 +31,6 @@ export class AuthService {
     this.registeredUsers = new BehaviorSubject<User[]>([]);
     // TODO: Remove once real server is up
     this.messagingService.setLoadingBig(true);
-    this.adminToken = environment.admin;
 
     this.apollo
       .watchQuery<any>({
@@ -57,6 +56,7 @@ export class AuthService {
    */
   private getMe(token: string): void {
     // Custom type for returned data
+    this.messagingService.setLoadingBig(true);
     type data = {
       getMe: User;
     };
@@ -69,12 +69,22 @@ export class AuthService {
       })
       .valueChanges.subscribe(({ data, loading, error }) => {
         // this.messagingService.setLoadingBig(loading);
-
-        if (data?.getMe && !error) {
-          this.setUser(null);
+        if (data?.getMe) {
+          this.messagingService.setLoadingBig(false);
           this.userIsAuthenticated.next(true);
+          this.setUser(data.getMe);
         }
-      });
+      }),
+      (error) => {
+        // Stop loading and display error message
+
+        this.messagingService.setLoadingBig(false);
+        console.log(
+          '%cThere was an error sending the login query',
+          'background: #222; color: #bada55',
+          error.message
+        );
+      };
   }
 
   /**

@@ -1,15 +1,7 @@
 import gql from 'graphql-tag';
 
-/**
- * Query for getting current user
- */
-export const getMe = gql`
-  {
-    getMe {
-      id
-      username
-      email
-      profile {
+const profileFragment = `
+  profile {
         id
         firstName
         lastName
@@ -17,7 +9,23 @@ export const getMe = gql`
         email
         phone
         image
+        title
       }
+`;
+const userFragment = `
+  id
+  username
+  email
+  ${profileFragment}
+`;
+
+/**
+ * Query for getting current user
+ */
+export const getMe = gql`
+  {
+    getMe {
+      ${userFragment}
     }
   }
 `;
@@ -56,19 +64,7 @@ export const loginUser = gql`
   mutation loginUser($username: String!, $password: String!) {
     loginUser(login: $username, password: $password) {
       token
-      user {
-        id
-        username
-        email
-        profile {
-          firstName
-          lastName
-          role
-          email
-          phone
-          image
-        }
-      }
+      ${userFragment}
     }
   }
 `;
@@ -79,19 +75,7 @@ export const changePassword = gql`
   mutation changePassword($id: String!, $password: String!) {
     changePassword(id: $id, password: $password) {
       token
-      user {
-        id
-        username
-        email
-        profile {
-          firstName
-          lastName
-          role
-          email
-          phone
-          image
-        }
-      }
+      ${userFragment}
     }
   }
 `;
@@ -140,18 +124,7 @@ export const createProfile = gql`
         title: $title
       }
     ) {
-      id
-      username
-      email
-      profile {
-        id
-        firstName
-        lastName
-        role
-        email
-        phone
-        image
-      }
+      ${userFragment}
     }
   }
 `;

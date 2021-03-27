@@ -14,8 +14,8 @@ export class LoginComponent implements OnInit {
   faLock = faLock;
 
   loginForm = this.fb.group({
-    username: ['admin', [Validators.required]],
-    password: ['Mustangs95', [Validators.required, Validators.minLength(8)]],
+    username: ['deadstyle', [Validators.required]],
+    password: ['!Mustangs95', [Validators.required, Validators.minLength(8)]],
     remember: [true],
   });
 

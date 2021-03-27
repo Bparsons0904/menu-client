@@ -77,7 +77,11 @@
         <div *ngIf="email.errors.required">Email is required.</div>
         <div *ngIf="email.errors.email">Must be a valid email format.</div>
       </div>
-      <button class="btn-primary" (click)="useLoginEmail()">
+      <button
+        class="btn-primary"
+        type="button"
+        (click)="useLoginEmail(); $event.stopPropagation()"
+      >
         <p>Use Login Email</p>
         <p>{{ user?.email }}</p>
       </button>
