@@ -186,9 +186,9 @@ export class AuthService {
           this.setUser(data?.loginUser?.user);
           // Route depending on profile status
           if (data?.loginUser?.user?.profile === null) {
-            this.router.navigate(['/profile']);
+            this.router.navigate(['/user/profile']);
           } else {
-            this.router.navigate(['/menu']);
+            this.router.navigate(['/user/home']);
           }
         },
         (error) => {
@@ -251,9 +251,9 @@ export class AuthService {
           this.setUser(data?.changePassword?.user);
           // Route depending on profile status
           if (data?.changePassword?.user?.profile === null) {
-            this.router.navigate(['/profile']);
+            this.router.navigate(['/user/profile']);
           } else {
-            this.router.navigate(['/menu']);
+            this.router.navigate(['/user/home']);
           }
         },
         (error) => {
@@ -302,20 +302,6 @@ export class AuthService {
               'There was a problem resetting this password. Please try again.'
             );
           }
-
-          // Store token if remember selected
-          // if (this.rememberUser) {
-          //   const token = data?.changePassword?.token;
-          //   authHelpers.setUserToken(token);
-          // }
-          // // Set user and authentication
-          // this.setUser(data?.changePassword?.user);
-          // // Route depending on profile status
-          // if (data?.changePassword?.user?.profile === null) {
-          //   this.router.navigate(['/profile']);
-          // } else {
-          //   this.router.navigate(['/menu']);
-          // }
         },
         (error) => {
           // Stop loading and display error message
@@ -329,27 +315,6 @@ export class AuthService {
         }
       );
   }
-
-  //   /**
-  //    * Query for getting current user
-  //    *
-  //    * @param token Token to login user
-  //    */
-  //   public async getResetToken(id: string): Promise<string> {
-  //     // Custom type for returned data
-  //     type data = {
-  //       getMe: User;
-  //     };
-
-  // const querySubscription = await this.apollo
-  //   .watchQuery<any>({
-  //     query: query.getResetToken,
-  //   })
-  //   .valueChanges.subscribe(({ data, loading }) => {
-  //     return data
-  //   });
-  //   return querySubscription;
-  //   }
 
   /**
    * Submit user for registration

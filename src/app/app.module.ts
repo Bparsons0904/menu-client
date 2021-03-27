@@ -23,7 +23,7 @@ import { LoadingComponent } from './components/navigation/loading/loading.compon
 import { MessagesComponent } from './components/navigation/messages/messages.component';
 import { LoginComponent } from './components/pages/authentication/login/login.component';
 import { RegisterComponent } from './components/pages/authentication/register/register.component';
-import { ProfileComponent } from './components/pages//user/profile/profile.component';
+import { ProfileComponent } from './components/pages/user/profile/profile.component';
 import { AboutComponent } from './components/pages/general/about/about.component';
 import { PricingComponent } from './components/pages/general/pricing/pricing.component';
 import { DemoComponent } from './components/pages/general/demo/demo.component';
@@ -40,6 +40,7 @@ import { MenuComponent } from './components/pages/user/menu/menu.component';
 import { ProductsComponent } from './components/pages/user/products/products.component';
 import { AccountComponent } from './components/pages/user/account/account.component';
 import { NotfoundComponent } from './components/navigation/notfound/notfound.component';
+import { ProductsCrudComponent } from './components/pages/user/modules/products-crud/products-crud.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { NotfoundComponent } from './components/navigation/notfound/notfound.com
     ProductsComponent,
     AccountComponent,
     NotfoundComponent,
+    ProductsCrudComponent,
   ],
   imports: [
     BrowserModule,
