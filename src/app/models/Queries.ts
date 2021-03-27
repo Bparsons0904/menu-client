@@ -96,6 +96,24 @@ export const changePassword = gql`
   }
 `;
 
+/**
+ * Mutation for sending a reset password
+ */
+export const resetPassword = gql`
+  mutation resetPassword($email: String!) {
+    resetPassword(email: $email)
+  }
+`;
+
+/**
+ * Get the reset password token
+ */
+export const getResetToken = gql`
+  query getResetToken($id: String!) {
+    getResetToken(id: $id)
+  }
+`;
+
 ////////////////////////////////////////////////////////
 // Profile Queries
 ////////////////////////////////////////////////////////

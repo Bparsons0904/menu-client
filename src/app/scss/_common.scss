@@ -79,7 +79,9 @@ form {
     -webkit-appearance: none;
   }
 }
-
+#authentication {
+  transform: translateY(50px);
+}
 .container {
   padding: 1.5em;
   margin: 0 auto;

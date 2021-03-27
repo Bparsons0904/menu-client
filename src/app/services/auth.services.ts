@@ -194,6 +194,12 @@ export class AuthService {
       );
   }
 
+  /**
+   * Change the users password
+   * @param id Id of the stored password reset
+   * @param password New user password
+   * @param remember User selection if auto login
+   */
   public changePassword(id: string, password: string, remember: boolean): void {
     console.log(id, password, remember);
 
@@ -252,6 +258,88 @@ export class AuthService {
         }
       );
   }
+
+  /**
+   * Send a reset email to change the users password
+   * @param email Email to send reset email to
+   */
+  public resetPassword(email: string): void {
+    // Start loading service
+    this.messagingService.setLoadingSmall(true);
+    // Custom type for returned data
+    type data = {
+      resetPassword: boolean;
+    };
+    // Start mutation query
+    this.apollo
+      .mutate<data>({
+        mutation: query.resetPassword,
+        // context: {
+        //   headers: new HttpHeaders().set('x-token', token),
+        // },
+        variables: {
+          email,
+        },
+      })
+      .subscribe(
+        ({ data }) => {
+          console.log(data);
+          this.messagingService.setLoadingSmall(false);
+          if (data.resetPassword) {
+            this.router.navigate(['user/checkemail']);
+          } else {
+            this.messagingService.setErrorMessage(
+              'There was a problem resetting this password. Please try again.'
+            );
+          }
+
+          // Store token if remember selected
+          // if (this.rememberUser) {
+          //   const token = data?.changePassword?.token;
+          //   authHelpers.setUserToken(token);
+          // }
+          // // Set user and authentication
+          // this.setUser(data?.changePassword?.user);
+          // // Route depending on profile status
+          // if (data?.changePassword?.user?.profile === null) {
+          //   this.router.navigate(['/profile']);
+          // } else {
+          //   this.router.navigate(['/menu']);
+          // }
+        },
+        (error) => {
+          // Stop loading and display error message
+          this.messagingService.setLoadingSmall(false);
+          this.messagingService.setErrorMessage(error.message);
+          console.log(
+            '%cThere was an error sending the updated password',
+            'background: #222; color: #bada55',
+            error.message
+          );
+        }
+      );
+  }
+
+  //   /**
+  //    * Query for getting current user
+  //    *
+  //    * @param token Token to login user
+  //    */
+  //   public async getResetToken(id: string): Promise<string> {
+  //     // Custom type for returned data
+  //     type data = {
+  //       getMe: User;
+  //     };
+
+  // const querySubscription = await this.apollo
+  //   .watchQuery<any>({
+  //     query: query.getResetToken,
+  //   })
+  //   .valueChanges.subscribe(({ data, loading }) => {
+  //     return data
+  //   });
+  //   return querySubscription;
+  //   }
 
   /**
    * Submit user for registration

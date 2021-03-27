@@ -48,8 +48,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
-    private customValidator: CustomvalidationService,
-    private messagingService: MessagingService
+    private customValidator: CustomvalidationService
   ) {}
 
   public registerForm: FormGroup = this.fb.group(
@@ -70,7 +69,7 @@ export class RegisterComponent implements OnInit {
       remember: [true],
     },
     {
-      validator: this.customValidator.matchPassword(
+      validators: this.customValidator.matchPassword(
         'password',
         'confirmPassword'
       ),

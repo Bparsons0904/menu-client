@@ -34,6 +34,8 @@ import { WaitingComponent } from './components/navigation/waiting/waiting.compon
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PasswordresetComponent } from './components/pages/authentication/passwordreset/passwordreset.component';
+import { ResetrequestComponent } from './components/pages/authentication/resetrequest/resetrequest.component';
+import { CheckemailComponent } from './components/pages/authentication/checkemail/checkemail.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,8 @@ import { PasswordresetComponent } from './components/pages/authentication/passwo
     ThankyouComponent,
     WaitingComponent,
     PasswordresetComponent,
+    ResetrequestComponent,
+    CheckemailComponent,
   ],
   imports: [
     BrowserModule,
