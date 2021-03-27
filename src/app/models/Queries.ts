@@ -64,7 +64,9 @@ export const loginUser = gql`
   mutation loginUser($username: String!, $password: String!) {
     loginUser(login: $username, password: $password) {
       token
-      ${userFragment}
+      user {
+        ${userFragment}
+      }
     }
   }
 `;
@@ -75,7 +77,9 @@ export const changePassword = gql`
   mutation changePassword($id: String!, $password: String!) {
     changePassword(id: $id, password: $password) {
       token
-      ${userFragment}
+      user {
+        ${userFragment}
+      }
     }
   }
 `;
@@ -124,7 +128,9 @@ export const createProfile = gql`
         title: $title
       }
     ) {
-      ${userFragment}
+      user {
+        ${userFragment}
+      }
     }
   }
 `;

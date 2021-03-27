@@ -36,6 +36,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PasswordresetComponent } from './components/pages/authentication/passwordreset/passwordreset.component';
 import { ResetrequestComponent } from './components/pages/authentication/resetrequest/resetrequest.component';
 import { CheckemailComponent } from './components/pages/authentication/checkemail/checkemail.component';
+import { MenuComponent } from './components/pages/user/menu/menu.component';
+import { ProductsComponent } from './components/pages/user/products/products.component';
+import { AccountComponent } from './components/pages/user/account/account.component';
+import { NotfoundComponent } from './components/navigation/notfound/notfound.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +62,10 @@ import { CheckemailComponent } from './components/pages/authentication/checkemai
     PasswordresetComponent,
     ResetrequestComponent,
     CheckemailComponent,
+    MenuComponent,
+    ProductsComponent,
+    AccountComponent,
+    NotfoundComponent,
   ],
   imports: [
     BrowserModule,
