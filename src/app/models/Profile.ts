@@ -6,5 +6,11 @@ export interface Profile {
   firstName: string;
   lastName: string;
   role: string;
+  title: string;
+  email: string;
+  phone: number;
+  image?: string;
+  active?: boolean;
+  dealerId: string;
   userId: string;
 }

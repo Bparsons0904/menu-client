@@ -14,8 +14,8 @@ export class LoginComponent implements OnInit {
   faLock = faLock;
 
   loginForm = this.fb.group({
-    username: ['', [Validators.required]],
-    password: ['', [Validators.required, Validators.minLength(8)]],
+    username: ['deadstyle', [Validators.required]],
+    password: ['!Mustangs95', [Validators.required, Validators.minLength(8)]],
     remember: [true],
   });
 
@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.messagingService.setLoadingSmall(true);
     this.authService.loginUser(
       this.loginForm.value.username,
       this.loginForm.value.password,

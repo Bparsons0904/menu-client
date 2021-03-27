@@ -1,1 +1,54 @@
-<p>pricing works!</p>
+<section>
+  <div id="pricing" class="container">
+    <div class="card-with-header">
+      <div class="inner-card">
+        <h1>Simple Pricing</h1>
+      </div>
+      <div class="input-container">
+        <h2>$199 <span>per month</span></h2>
+        <h4>
+          <fa-icon [icon]="faCheck" class="icon"></fa-icon>Unlimited Products
+        </h4>
+        <h4>
+          <fa-icon [icon]="faCheck" class="icon"></fa-icon>Unlimited Customers
+        </h4>
+        <h4>
+          <fa-icon [icon]="faCheck" class="icon"></fa-icon>Unlimited Email Links
+        </h4>
+        <h4>
+          <fa-icon [icon]="faCheck" class="icon"></fa-icon>Unlimited SMS Links
+        </h4>
+        <h4>
+          <fa-icon [icon]="faCheck" class="icon"></fa-icon>Exceptional User
+          Interface
+        </h4>
+        <h4><fa-icon [icon]="faCheck" class="icon"></fa-icon>No Setup Fees</h4>
+        <h4>
+          <fa-icon [icon]="faCheck" class="icon"></fa-icon>Customer History
+        </h4>
+        <h4>
+          <fa-icon [icon]="faCheck" class="icon"></fa-icon>Easy to Use Admin
+          Page
+        </h4>
+        <h4><fa-icon [icon]="faCheck" class="icon"></fa-icon>Free Support</h4>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing-cta">
+  <div class="container">
+    <button class="btn-secondary" [routerLink]="['/register']">
+      Get Started
+    </button>
+  </div>
+  <div id="yt-container">
+    <youtube-player
+      videoId="KMpmCGgHZrg"
+      suggestedQuality="highres"
+      [width]="width"
+      [height]="height"
+    >
+    </youtube-player>
+  </div>
+</section>

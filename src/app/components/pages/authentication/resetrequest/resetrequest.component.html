@@ -1,0 +1,46 @@
+<div id="authentication" class="container">
+  <div class="card">
+    <form class="form" [formGroup]="resetForm" (ngSubmit)="onSubmit()">
+      <div class="inner-card">
+        <h1>Reset Password Request</h1>
+      </div>
+      <h4 class="text-center">Enter email to reset.</h4>
+      <div class="input-container">
+        <div class="user-input">
+          <fa-icon [icon]="faEnvelope"></fa-icon>
+          <input
+            class="form-control"
+            id="email"
+            type="email"
+            name="email"
+            placeholder="E-mail"
+            formControlName="email"
+          />
+        </div>
+      </div>
+
+      <div class="text-danger" *ngIf="email.invalid && email.touched">
+        <div *ngIf="email?.errors?.required">Email is required.</div>
+        <div *ngIf="email.errors.email">Must be a valid email format.</div>
+      </div>
+      <div>
+        <app-waiting></app-waiting>
+        <app-messages></app-messages>
+        <button
+          class="btn-secondary"
+          type="submit"
+          value="Submit"
+          [ngClass]="{ disabled: !resetForm.valid }"
+          [disabled]="!resetForm.valid"
+        >
+          Submit Reset
+        </button>
+      </div>
+
+      <p class="change-type text-center" [routerLink]="['/login']">
+        Return to
+        <span>Login</span>
+      </p>
+    </form>
+  </div>
+</div>

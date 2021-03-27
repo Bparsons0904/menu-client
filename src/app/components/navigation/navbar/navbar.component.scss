@@ -30,10 +30,10 @@ header {
       color: $color-light;
       font-weight: 800;
       margin: 0px;
-        // font-family: $secondary-font;
-        // @include breakpoint(sm-tablet) {
-        //   font-size: 1.7em;
-        // }
+      // font-family: $secondary-font;
+      // @include breakpoint(sm-tablet) {
+      //   font-size: 1.7em;
+      // }
     }
   }
   .menu-wrap {
@@ -96,6 +96,12 @@ header {
         top: 10px;
       }
     }
+    // .hamburger:hover {
+    //   background-color: red;
+    //   > div::after {
+    //     top: 5px;
+    //   }
+    // }
     .toggler:checked {
       + .hamburger {
         > div {
@@ -122,14 +128,14 @@ header {
       }
     }
     .toggler:not(:checked):hover + .hamburger > div::before {
-      //   @include breakpoint(sm-desktop) {
-      //     transform: translateY(5px);
-      //   }
+      @include breakpoint(sm-tablet) {
+        top: -7.5px;
+      }
     }
     .toggler:not(:checked):hover + .hamburger > div::after {
-      //   @include breakpoint(sm-desktop) {
-      //     transform: translateY(-5px);
-      //   }
+      @include breakpoint(sm-tablet) {
+        top: 7.5px;
+      }
     }
     .toggler:checked:hover + .hamburger {
       > div {
@@ -179,6 +185,7 @@ header {
             font-size: 1.1em;
             padding: 0.25em;
             text-transform: uppercase;
+            cursor: pointer;
             div {
               transition: all 0.5s ease;
               color: $color-light;

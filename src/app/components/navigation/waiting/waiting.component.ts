@@ -13,7 +13,6 @@ export class WaitingComponent implements OnInit {
   ngOnInit(): void {
     this.messagingService.isLoadedSmall().subscribe((loading) => {
       this.loadingSmall = loading;
-      console.log({ loading });
     });
   }
 }

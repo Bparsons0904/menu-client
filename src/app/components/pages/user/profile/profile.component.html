@@ -1,0 +1,102 @@
+<div id="profile" class="container">
+  <div class="card-with-header">
+    <form class="form" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+      <div class="inner-card">
+        <h1>User Profile</h1>
+      </div>
+      <div class="input-container">
+        <div class="user-input">
+          <fa-icon [icon]="faUser"></fa-icon>
+          <input
+            class="form-control"
+            id="firstName"
+            type="text"
+            name="firstName"
+            placeholder="First Name"
+            formControlName="firstName"
+          />
+        </div>
+        <div class="user-input">
+          <fa-icon [icon]="faUser"></fa-icon>
+          <input
+            class="form-control"
+            id="lastName"
+            type="text"
+            name="lastName"
+            placeholder="Last Name"
+            formControlName="lastName"
+          />
+        </div>
+        <div class="user-input">
+          <fa-icon [icon]="faSignature"></fa-icon>
+          <input
+            class="form-control"
+            id="title"
+            type="text"
+            name="title"
+            placeholder="Title"
+            formControlName="title"
+          />
+        </div>
+        <div class="user-input">
+          <fa-icon [icon]="faPhone"></fa-icon>
+          <input
+            class="form-control"
+            id="phone"
+            type="number"
+            name="phone"
+            placeholder="Phone"
+            formControlName="phone"
+          />
+        </div>
+        <div class="user-input">
+          <fa-icon [icon]="faEnvelope"></fa-icon>
+          <input
+            class="form-control"
+            id="email"
+            type="email"
+            name="email"
+            placeholder="Contact E-mail"
+            formControlName="email"
+          />
+        </div>
+      </div>
+      <div class="text-danger" *ngIf="firstName.invalid && firstName.touched">
+        <div *ngIf="firstName.errors.required">First name is required.</div>
+      </div>
+      <div class="text-danger" *ngIf="lastName.invalid && lastName.touched">
+        <div *ngIf="lastName.errors.required">Last name is required.</div>
+      </div>
+      <div class="text-danger" *ngIf="title.invalid && title.touched">
+        <div *ngIf="title.errors.required">Title is required.</div>
+      </div>
+      <div class="text-danger" *ngIf="phone.invalid && phone.touched">
+        <div *ngIf="phone.errors.required">Phone is required.</div>
+      </div>
+      <div class="text-danger" *ngIf="email.invalid && email.touched">
+        <div *ngIf="email.errors.required">Email is required.</div>
+        <div *ngIf="email.errors.email">Must be a valid email format.</div>
+      </div>
+      <button
+        class="btn-primary"
+        type="button"
+        (click)="useLoginEmail(); $event.stopPropagation()"
+      >
+        <p>Use Login Email</p>
+        <p>{{ user?.email }}</p>
+      </button>
+      <div>
+        <app-waiting></app-waiting>
+        <button
+          class="btn-secondary"
+          type="submit"
+          value="Submit"
+          [ngClass]="{ disabled: !profileForm.valid }"
+          [disabled]="!profileForm.valid"
+        >
+          Update Profile
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
