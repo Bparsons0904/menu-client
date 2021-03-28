@@ -8,7 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 // Services
-import { AuthService } from '../../../../services/auth.services';
+import { AuthService } from '../../../../services/auth.service';
 
 // Models
 import { User } from '../../../../models/User';

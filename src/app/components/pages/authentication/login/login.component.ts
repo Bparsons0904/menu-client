@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
-import { AuthService } from '../../../../services/auth.services';
+import { AuthService } from '../../../../services/auth.service';
 import { MessagingService } from '../../../../services/messaging.service';
 
 @Component({

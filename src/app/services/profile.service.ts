@@ -5,7 +5,7 @@ import { Apollo } from 'apollo-angular';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 import { MessagingService } from './messaging.service';
-import { AuthService, authHelpers } from './auth.services';
+import { AuthService, authHelpers } from './auth.service';
 import { Profile } from '../models/profile';
 import { User } from '../models/user';
 import * as query from '../models/Queries';

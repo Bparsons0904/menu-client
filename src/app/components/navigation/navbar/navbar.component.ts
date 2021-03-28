@@ -1,6 +1,5 @@
-import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../services/auth.services';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-navbar',

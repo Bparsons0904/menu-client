@@ -9,7 +9,7 @@ import {
 import { faEnvelope, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 
 // Services
-import { AuthService } from '../../../../services/auth.services';
+import { AuthService } from '../../../../services/auth.service';
 import { MessagingService } from '../../../../services/messaging.service';
 import { CustomvalidationService } from '../../../../services/customvalidation.service';
 

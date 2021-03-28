@@ -7,10 +7,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
 // Services
-import { AuthService } from './services/auth.services';
+import { AuthService } from './services/auth.service';
 import { MessagingService } from './services/messaging.service';
 import { CustomvalidationService } from './services/customvalidation.service';
 import { ProfileService } from './services/profile.service';
+import { ProductService } from './services/product.service';
 
 // Modules
 import { YouTubePlayerModule } from '@angular/youtube-player';
@@ -83,6 +84,7 @@ import { ProductsCrudComponent } from './components/pages/user/modules/products-
     MessagingService,
     CustomvalidationService,
     ProfileService,
+    ProductService,
   ],
   bootstrap: [AppComponent],
 })

@@ -1,1 +1,7 @@
-<p>products works!</p>
+<div *ngIf="products?.length > 0">
+  <div *ngFor="let product of products">
+    <p>{{ product.id }}</p>
+    <p>{{ product.title }}</p>
+    <p>{{ product.description }}</p>
+  </div>
+</div>

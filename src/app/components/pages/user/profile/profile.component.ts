@@ -16,7 +16,7 @@ import {
   faPhone,
 } from '@fortawesome/free-solid-svg-icons';
 // Services
-import { AuthService } from '../../../../services/auth.services';
+import { AuthService } from '../../../../services/auth.service';
 import { ProfileService } from '../../../../services/profile.service';
 
 @Component({

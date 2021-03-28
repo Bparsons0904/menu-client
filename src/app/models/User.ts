@@ -1,4 +1,5 @@
 import { Profile } from './Profile';
+import { Product } from './Product';
 
 /**
  * Model for a user
@@ -9,4 +10,5 @@ export interface User {
   email: string;
   password: string;
   profile?: Profile;
+  product?: Product[];
 }

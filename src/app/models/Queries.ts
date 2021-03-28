@@ -161,3 +161,49 @@ export const updateProfile = gql`
     )
   }
 `;
+
+////////////////////////////////////////////////////////
+// Product Queries
+////////////////////////////////////////////////////////
+const productFragment = `
+  id
+  title
+  description
+  image
+  video
+`;
+
+/**
+ * Get the reset password token
+ */
+export const createProduct = gql`
+  query createProduct($id: String!) {
+    createProduct(createProduct: {id: $id title: $title description: $description image: $image vide: video}) {
+      ${productFragment}
+    }
+  }
+`;
+
+/**
+ * Get the reset password token
+ */
+export const getProduct = gql`
+  query getProduct($id: String!) {
+    getProduct(id: $id) {
+      ${productFragment}
+    }
+  }
+`;
+
+/**
+ * Query for getting current user
+ */
+export const getProducts = gql`
+  {
+    getProducts {
+      id
+      title
+      description
+    }
+  }
+`;
