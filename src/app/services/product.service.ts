@@ -26,8 +26,6 @@ export class ProductService {
   }
 
   public getProducts(): Observable<Product[]> {
-    console.log(this.products.value);
-
     if (this.products.value === null) {
       this.queryProducts();
     }
@@ -63,6 +61,42 @@ export class ProductService {
           this.messagingService.setLoadingSmall(false);
           if (data) {
             this.setProducts(data.createProduct);
+          }
+        },
+        (error) => {
+          // Stop loading
+          this.messagingService.setLoadingSmall(false);
+          console.log('there was an error sending the query', error.message);
+        }
+      );
+  }
+
+  public deleteProduct(id: string): void {
+    this.messagingService.setLoadingSmall(true);
+    type data = {
+      deleteProduct: Product[];
+    };
+
+    this.apollo
+      .mutate<data>({
+        mutation: query.deleteProduct,
+        context: {
+          headers: new HttpHeaders().set('x-token', authHelpers.getUserToken()),
+        },
+        variables: {
+          id,
+        },
+      })
+      .subscribe(
+        ({ data }) => {
+          this.messagingService.setLoadingSmall(false);
+          if (data?.deleteProduct) {
+            const currentProducts: Product[] = this.products.value;
+            const newProducts = currentProducts.filter(
+              (product) => product.id !== id
+            );
+
+            this.setProducts(newProducts);
           }
         },
         (error) => {
@@ -115,8 +149,6 @@ export class ProductService {
         },
       })
       .valueChanges.subscribe(({ data }) => {
-        console.log('From service', data);
-
         // this.messagingService.setLoadingBig(loading);
         if (data) {
           this.messagingService.setLoadingSmall(false);

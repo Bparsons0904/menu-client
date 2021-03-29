@@ -177,10 +177,19 @@ const productFragment = `
  * Get the reset password token
  */
 export const createProduct = gql`
-  query createProduct($id: String!) {
-    createProduct(createProduct: {id: $id title: $title description: $description image: $image vide: video}) {
+  mutation createProduct($title: String!, $description: String!, $cost: Float!, $image: String, $video: String) {
+    createProduct(createProduct: {title: $title description: $description cost: $cost image: $image video: $video}) {
       ${productFragment}
     }
+  }
+`;
+
+/**
+ * Get the reset password token
+ */
+export const deleteProduct = gql`
+  mutation deleteProduct($id: String!) {
+    deleteProduct(id: $id)
   }
 `;
 
@@ -204,6 +213,9 @@ export const getProducts = gql`
       id
       title
       description
+      cost
+      image
+      video
     }
   }
 `;

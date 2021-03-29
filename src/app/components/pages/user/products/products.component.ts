@@ -10,10 +10,13 @@ import { Product } from '../../../../models/Product';
 })
 export class ProductsComponent implements OnInit {
   public products: Product[];
+  public displayCreate: boolean;
   constructor(
     private productService: ProductService,
     private authService: AuthService
-  ) {}
+  ) {
+    this.displayCreate = false;
+  }
 
   ngOnInit(): void {
     this.authService.getUser().subscribe((user) => {
@@ -29,5 +32,13 @@ export class ProductsComponent implements OnInit {
         });
       }
     });
+  }
+
+  public displayCreateForm(): void {
+    this.displayCreate = true;
+  }
+
+  public onDelete(id: string): void {
+    this.productService.deleteProduct(id);
   }
 }

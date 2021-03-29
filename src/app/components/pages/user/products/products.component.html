@@ -1,7 +1,32 @@
-<div *ngIf="products?.length > 0">
-  <div *ngFor="let product of products">
-    <p>{{ product.id }}</p>
-    <p>{{ product.title }}</p>
-    <p>{{ product.description }}</p>
-  </div>
+<table *ngIf="products?.length > 0">
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Cost</th>
+    <th>Image</th>
+    <th>Video</th>
+    <th>Delete</th>
+  </tr>
+  <tr *ngFor="let product of products">
+    <td>{{ product.title }}</td>
+    <td>{{ product.description }}</td>
+    <td>{{ product.cost }}</td>
+    <td><img src="{{ product.image }}" alt="" /></td>
+    <td>
+      <div id="yt-container">
+        <youtube-player
+          videoId="{{ product.video }}"
+          suggestedQuality="highres"
+          [width]="75"
+          [height]="50"
+        >
+        </youtube-player>
+      </div>
+    </td>
+    <td (click)="onDelete(product.id)">Delete</td>
+  </tr>
+</table>
+<button (click)="displayCreateForm()">Add Product</button>
+<div *ngIf="displayCreate">
+  <app-product-create></app-product-create>
 </div>

@@ -1,0 +1,90 @@
+<div id="profile" class="container">
+  <div class="card-with-header">
+    <form class="form" [formGroup]="productForm" (ngSubmit)="onSubmit()">
+      <div class="inner-card">
+        <h1>Create Product</h1>
+      </div>
+      <div class="input-container">
+        <div class="user-input">
+          <!-- <fa-icon [icon]="faUser"></fa-icon> -->
+          <input
+            class="form-control"
+            id="title"
+            type="text"
+            name="title"
+            placeholder="Product Title"
+            formControlName="title"
+          />
+        </div>
+        <div class="user-input">
+          <!-- <fa-icon [icon]="faUser"></fa-icon> -->
+          <input
+            class="form-control"
+            id="description"
+            type="text"
+            name="description"
+            placeholder="Product Description"
+            formControlName="description"
+          />
+        </div>
+        <div class="user-input">
+          <!-- <fa-icon [icon]="faPhone"></fa-icon> -->
+          <input
+            class="form-control"
+            id="cost"
+            type="number"
+            name="cost"
+            placeholder="Product Cost"
+            formControlName="cost"
+          />
+        </div>
+        <div class="user-input">
+          <!-- <fa-icon [icon]="faUser"></fa-icon> -->
+          <input
+            class="form-control"
+            id="image"
+            type="text"
+            name="image"
+            placeholder="Product Image"
+            formControlName="image"
+          />
+        </div>
+        <div class="user-input">
+          <!-- <fa-icon [icon]="faUser"></fa-icon> -->
+          <input
+            class="form-control"
+            id="video"
+            type="text"
+            name="video"
+            placeholder="Product Video"
+            formControlName="video"
+          />
+        </div>
+      </div>
+      <div class="text-danger" *ngIf="title.invalid && title.touched">
+        <div *ngIf="title.errors.required">Title is required.</div>
+      </div>
+      <div
+        class="text-danger"
+        *ngIf="description.invalid && description.touched"
+      >
+        <div *ngIf="description.errors.required">Description is required.</div>
+      </div>
+      <div class="text-danger" *ngIf="cost.invalid && cost.touched">
+        <div *ngIf="cost.errors.required">Cost is required.</div>
+      </div>
+      <div>
+        <app-waiting></app-waiting>
+        <button
+          class="btn-secondary"
+          type="submit"
+          value="Submit"
+          [ngClass]="{ disabled: !productForm.valid }"
+          [disabled]="!productForm.valid"
+        >
+          Add Product
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

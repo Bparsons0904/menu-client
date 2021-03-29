@@ -100,8 +100,6 @@ export class AuthService {
    * @param user User object
    */
   public setUser(user: User): void {
-    console.log('Set user', user);
-
     this.user.next(user);
     const authenticated: boolean = user !== null ? true : false;
     this.userIsAuthenticated.next(authenticated);
@@ -211,8 +209,6 @@ export class AuthService {
    * @param remember User selection if auto login
    */
   public changePassword(id: string, password: string, remember: boolean): void {
-    console.log(id, password, remember);
-
     // Store remember to check after load
     this.rememberUser = remember;
     // Start loading service
@@ -239,9 +235,6 @@ export class AuthService {
       })
       .subscribe(
         ({ data }) => {
-          console.log(data);
-          console.log(data.changePassword);
-
           // Store token if remember selected
           if (this.rememberUser) {
             const token = data?.changePassword?.token;
@@ -293,7 +286,6 @@ export class AuthService {
       })
       .subscribe(
         ({ data }) => {
-          console.log(data);
           this.messagingService.setLoadingSmall(false);
           if (data.resetPassword) {
             this.router.navigate(['user/checkemail']);
@@ -386,8 +378,6 @@ export class authHelpers {
    * @returns Stored value of user token
    */
   static getUserToken(): string {
-    console.log(localStorage.getItem('token'));
-
     return localStorage.getItem('token') ?? null;
   }
 
@@ -396,10 +386,7 @@ export class authHelpers {
    * @param token User token from login/registration
    */
   static setUserToken(token: string): void {
-    console.log(token);
-
     localStorage.setItem('token', token);
-    console.log(localStorage.getItem('token'));
   }
 
   /**

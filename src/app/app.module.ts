@@ -42,6 +42,7 @@ import { ProductsComponent } from './components/pages/user/products/products.com
 import { AccountComponent } from './components/pages/user/account/account.component';
 import { NotfoundComponent } from './components/navigation/notfound/notfound.component';
 import { ProductsCrudComponent } from './components/pages/user/modules/products-crud/products-crud.component';
+import { ProductCreateComponent } from './components/pages/user/modules/product-create/product-create.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { ProductsCrudComponent } from './components/pages/user/modules/products-
     AccountComponent,
     NotfoundComponent,
     ProductsCrudComponent,
+    ProductCreateComponent,
   ],
   imports: [
     BrowserModule,
