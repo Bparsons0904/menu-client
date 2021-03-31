@@ -3,12 +3,11 @@ import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Apollo } from 'apollo-angular';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 import { MessagingService } from './messaging.service';
 
 import * as query from '../models/Queries';
-import { stringify } from '@angular/compiler/src/util';
 
 @Injectable({
   providedIn: 'root',
@@ -171,6 +170,7 @@ export class AuthService {
         variables: {
           username: login,
           password: password,
+          remember: remember,
         },
       })
       .subscribe(
@@ -193,6 +193,7 @@ export class AuthService {
           // Stop loading and display error message
           this.messagingService.setLoadingSmall(false);
           this.messagingService.setErrorMessage(error.message);
+          this.router.navigate(['/auth/checkemail/register']);
           console.log(
             '%cThere was an error sending the login query',
             'background: #222; color: #bada55',
@@ -288,7 +289,7 @@ export class AuthService {
         ({ data }) => {
           this.messagingService.setLoadingSmall(false);
           if (data.resetPassword) {
-            this.router.navigate(['user/checkemail']);
+            this.router.navigate(['/auth/checkemail/password']);
           } else {
             this.messagingService.setErrorMessage(
               'There was a problem resetting this password. Please try again.'
@@ -317,15 +318,10 @@ export class AuthService {
   public registerUser(user: User, remember: boolean): void {
     // Set loading to true
     this.messagingService.setLoadingSmall(true);
-    // Store temp values
-    this.rememberUser = remember;
 
     // Custom return data type
     type data = {
-      createUser: {
-        token: string;
-        user: User;
-      };
+      createUser: boolean;
     };
 
     // Start mutation
@@ -336,18 +332,70 @@ export class AuthService {
           headers: new HttpHeaders().set('x-token', environment.admin),
         },
         variables: {
+          remember,
           ...user,
         },
       })
       .subscribe(
         ({ data }) => {
-          // Set token to returned data value
-          if (data.createUser) {
-            authHelpers.setUserToken(data.createUser.token);
+          // Redirect to check email page
+          if (data?.createUser) {
+            this.messagingService.setLoadingSmall(false);
+            this.router.navigate(['/auth/checkemail/register']);
           }
-          // Set user and authentication
-          this.setUser(data.createUser.user);
-          this.router.navigate(['/profile']);
+        },
+        (error) => {
+          // Stop loading and display error message
+          this.messagingService.setLoadingSmall(false);
+          this.messagingService.setErrorMessage(error.message);
+          console.log('there was an error sending the query', error.messages);
+        }
+      );
+  }
+
+  public completeRegistration(id: string, remember: boolean): void {
+    // Set loading to true
+    this.messagingService.setLoadingSmall(true);
+
+    // Custom return data type
+    type data = {
+      completeRegistration: {
+        user: User;
+        token: string;
+      };
+    };
+
+    // Start mutation
+    this.apollo
+      .mutate<data>({
+        mutation: query.completeRegistration,
+        context: {
+          headers: new HttpHeaders().set('x-token', environment.admin),
+        },
+        variables: {
+          id,
+        },
+      })
+      .subscribe(
+        ({ data }) => {
+          // Redirect to check email page
+          if (data?.completeRegistration) {
+            this.messagingService.setLoadingSmall(false);
+            if (remember) {
+              console.log({ remember });
+
+              const token = data?.completeRegistration?.token;
+              authHelpers.setUserToken(token);
+            }
+            // Set user and authentication
+            this.setUser(data?.completeRegistration?.user);
+            // Route depending on profile status
+            if (data?.completeRegistration?.user?.profile === null) {
+              this.router.navigate(['/user/profile']);
+            } else {
+              this.router.navigate(['/user/home']);
+            }
+          }
         },
         (error) => {
           // Stop loading and display error message

@@ -94,7 +94,8 @@
           [ngClass]="{ disabled: !profileForm.valid }"
           [disabled]="!profileForm.valid"
         >
-          Update Profile
+          <span *ngIf="profile">Update</span
+          ><span *ngIf="!profile">Create</span> Profile
         </button>
       </div>
     </form>

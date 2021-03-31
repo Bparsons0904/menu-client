@@ -46,23 +46,26 @@ export const getUsers = gql`
  * Mutation for registering user
  */
 export const registerUser = gql`
-  mutation createUser($username: String!, $password: String!, $email: String!) {
-    createUser(username: $username, email: $email, password: $password) {
-      user {
-        id
-        username
-        email
-      }
-      token
-    }
+  mutation createUser(
+    $username: String!
+    $password: String!
+    $email: String!
+    $remember: Boolean!
+  ) {
+    createUser(
+      username: $username
+      email: $email
+      password: $password
+      remember: $remember
+    )
   }
 `;
 /**
  * Mutation for getting current user
  */
 export const loginUser = gql`
-  mutation loginUser($username: String!, $password: String!) {
-    loginUser(login: $username, password: $password) {
+  mutation loginUser($username: String!, $password: String!, $remember: Boolean!) {
+    loginUser(login: $username, password: $password, remember: $remember) {
       token
       user {
         ${userFragment}
@@ -102,6 +105,20 @@ export const getResetToken = gql`
   }
 `;
 
+/**
+ * Complete registration
+ */
+export const completeRegistration = gql`
+  mutation completeRegistration($id: String!) {
+    completeRegistration(id: $id) {
+      token
+      user {
+        ${userFragment}
+      }
+    }
+  }
+`;
+
 ////////////////////////////////////////////////////////
 // Profile Queries
 ////////////////////////////////////////////////////////
@@ -128,9 +145,7 @@ export const createProfile = gql`
         title: $title
       }
     ) {
-      user {
-        ${userFragment}
-      }
+      ${userFragment}
     }
   }
 `;

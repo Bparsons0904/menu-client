@@ -47,12 +47,9 @@ export class ProfileService {
       })
       .subscribe(
         ({ data }) => {
-          console.log('Creating profile', data);
-
           if (data) {
-            console.log('inside', data?.createProfile);
-
             this.authService.setUser(data?.createProfile);
+            this.router.navigate(['/user/home']);
           }
         },
         (error) => {
@@ -83,7 +80,7 @@ export class ProfileService {
         ({ data }) => {
           if (data) {
             this.authService.setUser(data.updateProfile);
-            this.router.navigate(['/customer/home']);
+            this.router.navigate(['/user/home']);
           }
         },
         (error) => {

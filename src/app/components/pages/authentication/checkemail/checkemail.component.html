@@ -1,6 +1,13 @@
-<div class="container text-center">
+<div class="container text-center" *ngIf="type === 'password'">
   <img src="../../../../../assets/images/recovery.svg" alt="" />
   <h2>An account recover email has successfully been sent.</h2>
-  <h4>The link will be valid for 24 hrs.</h4>
-  <h4>You can close this tab.</h4>
+  <h4>Please check your email.The link will be valid for 24 hrs.</h4>
+  <h4>You can safely close this tab.</h4>
+</div>
+<div class="container text-center" *ngIf="type === 'register'">
+  <img src="../../../../../assets/images/recovery.svg" alt="" />
+  <app-messages></app-messages>
+  <h2>An account registration email has successfully been sent.</h2>
+  <h4>Please check your email</h4>
+  <h4>You can safely close this tab.</h4>
 </div>

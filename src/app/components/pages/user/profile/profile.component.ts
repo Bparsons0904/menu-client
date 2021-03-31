@@ -32,7 +32,7 @@ export class ProfileComponent implements OnInit {
   faPhone = faPhone;
 
   public user: User;
-  private profile: Profile;
+  public profile: Profile;
 
   constructor(
     private fb: FormBuilder,

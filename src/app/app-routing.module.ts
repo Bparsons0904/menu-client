@@ -12,6 +12,7 @@ import { RegisterComponent } from './components/pages/authentication/register/re
 import { PasswordresetComponent } from './components/pages/authentication/passwordreset/passwordreset.component';
 import { ResetrequestComponent } from './components/pages/authentication/resetrequest/resetrequest.component';
 import { CheckemailComponent } from './components/pages/authentication/checkemail/checkemail.component';
+import { RegisteredComponent } from './components/pages/authentication/registered/registered.component';
 // User Components
 import { ProfileComponent } from './components/pages/user/profile/profile.component';
 import { AccountComponent } from './components/pages/user/account/account.component';
@@ -35,8 +36,9 @@ const routes: Routes = [
   { path: 'auth/login', component: LoginComponent },
   { path: 'auth/register', component: RegisterComponent },
   { path: 'auth/resetrequest', component: ResetrequestComponent },
-  { path: 'auth/checkemail', component: CheckemailComponent },
+  { path: 'auth/checkemail/:type', component: CheckemailComponent },
   { path: 'auth/passwordreset/:id', component: PasswordresetComponent },
+  { path: 'auth/register/:id/:remember', component: RegisteredComponent },
   // User routes
   { path: 'user/profile', component: ProfileComponent },
   { path: 'user/account', component: AccountComponent },
