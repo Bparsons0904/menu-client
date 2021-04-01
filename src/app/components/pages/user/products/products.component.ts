@@ -11,6 +11,8 @@ import { Product } from '../../../../models/Product';
 export class ProductsComponent implements OnInit {
   public products: Product[];
   public displayCreate: boolean;
+  public productId: string;
+
   constructor(
     private productService: ProductService,
     private authService: AuthService
@@ -34,11 +36,20 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  public displayCreateForm(): void {
-    this.displayCreate = true;
+  public toggleCreate(): void {
+    this.displayCreate = !this.displayCreate;
+    console.log(this.displayCreate);
   }
 
   public onDelete(id: string): void {
     this.productService.deleteProduct(id);
+  }
+
+  public openEdit(id: string): void {
+    this.productId = id;
+  }
+
+  public closeEdit(): void {
+    this.productId = null;
   }
 }

@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { GraphQLModule } from './graphql.module';
+// import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -41,9 +41,15 @@ import { MenuComponent } from './components/pages/user/menu/menu.component';
 import { ProductsComponent } from './components/pages/user/products/products.component';
 import { AccountComponent } from './components/pages/user/account/account.component';
 import { NotfoundComponent } from './components/navigation/notfound/notfound.component';
-import { ProductsCrudComponent } from './components/pages/user/modules/products-crud/products-crud.component';
 import { ProductCreateComponent } from './components/pages/user/modules/product-create/product-create.component';
 import { RegisteredComponent } from './components/pages/authentication/registered/registered.component';
+import { ProductEditComponent } from './components/pages/user/modules/product-edit/product-edit.component';
+import { APOLLO_OPTIONS } from 'apollo-angular';
+import { HttpLink } from 'apollo-angular/http';
+import { InMemoryCache } from '@apollo/client/core';
+import { environment } from 'src/environments/environment';
+
+const uri: string = environment.uri;
 
 @NgModule({
   declarations: [
@@ -70,14 +76,14 @@ import { RegisteredComponent } from './components/pages/authentication/registere
     ProductsComponent,
     AccountComponent,
     NotfoundComponent,
-    ProductsCrudComponent,
     ProductCreateComponent,
     RegisteredComponent,
+    ProductEditComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    GraphQLModule,
+    // GraphQLModule,
     HttpClientModule,
     ReactiveFormsModule,
     FontAwesomeModule,
@@ -89,6 +95,18 @@ import { RegisteredComponent } from './components/pages/authentication/registere
     CustomvalidationService,
     ProfileService,
     ProductService,
+    {
+      provide: APOLLO_OPTIONS,
+      useFactory: (httpLink: HttpLink) => {
+        return {
+          cache: new InMemoryCache(),
+          link: httpLink.create({
+            uri: uri,
+          }),
+        };
+      },
+      deps: [HttpLink],
+    },
   ],
   bootstrap: [AppComponent],
 })

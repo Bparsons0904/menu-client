@@ -5,6 +5,7 @@
     <th>Cost</th>
     <th>Image</th>
     <th>Video</th>
+    <th>Edit</th>
     <th>Delete</th>
   </tr>
   <tr *ngFor="let product of products">
@@ -23,10 +24,17 @@
         </youtube-player>
       </div>
     </td>
+    <td (click)="openEdit(product.id)">Edit</td>
     <td (click)="onDelete(product.id)">Delete</td>
   </tr>
 </table>
-<button (click)="displayCreateForm()">Add Product</button>
+<button (click)="toggleCreate()">Add Product</button>
 <div *ngIf="displayCreate">
+  <button (click)="toggleCreate()" class="btn-primary">Done Adding</button>
   <app-product-create></app-product-create>
+</div>
+
+<div *ngIf="productId">
+  <button (click)="closeEdit()">Close Edit</button>
+  <app-product-edit [productId]="productId"></app-product-edit>
 </div>

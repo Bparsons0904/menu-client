@@ -193,7 +193,9 @@ export class AuthService {
           // Stop loading and display error message
           this.messagingService.setLoadingSmall(false);
           this.messagingService.setErrorMessage(error.message);
-          this.router.navigate(['/auth/checkemail/register']);
+          if (error.message === 'Email not validated.') {
+            this.router.navigate(['/auth/checkemail/register']);
+          }
           console.log(
             '%cThere was an error sending the login query',
             'background: #222; color: #bada55',
